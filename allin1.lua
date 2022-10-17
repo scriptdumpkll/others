@@ -85,17 +85,6 @@ function CMD(Str)
             saymsg((getgenv().Settings.prefix).."god")
             wait(2)
             saymsg((getgenv().Settings.prefix).."cdrop "..Cmd[2])
-        elseif Cmd[4] then
-            wait(2)
-            saymsg((getgenv().Settings.prefix).."setup "..Cmd[3])
-            wait(2)
-            saymsg((getgenv().Settings.prefix).."ground")
-            wait(2)
-            saymsg((getgenv().Settings.prefix).."god")
-            wait(2)
-            saymsg((getgenv().Settings.prefix).."tp "..Cmd[4].." "..Cmd[3])
-            wait(2)
-            saymsg((getgenv().Settings.prefix).."cdrop "..Cmd[2])
         end
     elseif Cmd[1] == ((getgenv().Settings.prefix).."stop") then
         wait(2)
