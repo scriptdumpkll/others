@@ -1,40 +1,13 @@
-local decalsyeeted = true
-local g = game
-local w = g.Workspace
-local l = g.Lighting
-local t = w.Terrain
-t.WaterWaveSize = 0
-t.WaterWaveSpeed = 0
-t.WaterReflectance = 0
-t.WaterTransparency = 0
-l.GlobalShadows = false
-l.FogEnd = 9e9
-l.Brightness = 0
-settings().Rendering.QualityLevel = "Level01"
-for i, v in pairs(g:GetDescendants()) do
-    if v:IsA("Part") or v:IsA("Union") or v:IsA("CornerWedgePart") or v:IsA("TrussPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-    elseif v:IsA("Decal") or v:IsA("Texture") and decalsyeeted then
-        v.Transparency = 1
-    elseif v:IsA("ParticleEmitter") or v:IsA("Trail") then
-        v.Lifetime = NumberRange.new(0)
-    elseif v:IsA("Explosion") then
-        v.BlastPressure = 1
-        v.BlastRadius = 1
-    elseif v:IsA("Fire") or v:IsA("SpotLight") or v:IsA("Smoke") or v:IsA("Sparkles") then
-            v.Enabled = false
-    elseif v:IsA("MeshPart") then
-        v.Material = "Plastic"
-        v.Reflectance = 0
-        v.TextureID = 10385902758728957
-    end
-end
-
-for i, e in pairs(l:GetChildren()) do
-    if e:IsA("BlurEffect") or e:IsA("SunRaysEffect") or e:IsA("ColorCorrectionEffect") or e:IsA("BloomEffect") or e:IsA("DepthOfFieldEffect") then
-        e.Enabled = false
-    end
+settings().Physics.PhysicsEnvironmentalThrottle = 1
+settings().Rendering.QualityLevel = 'Level01'
+for i,v in pairs(game:GetDescendants()) do
+     if v:IsA("Part") then
+          v.Material = Enum.Material.Plastic
+     elseif v:IsA("Decal") then
+          v:Destroy()
+     elseif v:IsA("Texture") then
+          v:Destroy()
+     end
 end
 
 hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
@@ -63,7 +36,7 @@ Mouse.KeyDown:Connect(function(a)
         
         Frame.Parent = Holder
         Frame.AnchorPoint = Vector2.new(0.5, 0.5)
-        Frame.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+        Frame.BackgroundColor3 = Color3.fromRGB(27, 42, 53)
         Frame.Position = UDim2.new(0.5, 0, 0.5, 0)
         Frame.Size = UDim2.new(1, 0, 1, 0)
         setfpscap(3)
@@ -103,13 +76,24 @@ function CMD(Str)
             saymsg((getgenv().Settings.prefix).."god")
             wait(2)
             saymsg((getgenv().Settings.prefix).."cdrop "..Cmd[2])
-        elseif Cmd[3] then
+        elseif Cmd[3] and not Cmd[4] then
             wait(2)
             saymsg((getgenv().Settings.prefix).."setup "..Cmd[3])
             wait(2)
             saymsg((getgenv().Settings.prefix).."ground")
             wait(2)
             saymsg((getgenv().Settings.prefix).."god")
+            wait(2)
+            saymsg((getgenv().Settings.prefix).."cdrop "..Cmd[2])
+        elseif Cmd[4] then
+            wait(2)
+            saymsg((getgenv().Settings.prefix).."setup "..Cmd[3])
+            wait(2)
+            saymsg((getgenv().Settings.prefix).."ground")
+            wait(2)
+            saymsg((getgenv().Settings.prefix).."god")
+            wait(2)
+            saymsg((getgenv().Settings.prefix).."tp "..Cmd[4].." "..Cmd[3])
             wait(2)
             saymsg((getgenv().Settings.prefix).."cdrop "..Cmd[2])
         end
