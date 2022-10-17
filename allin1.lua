@@ -84,6 +84,7 @@ local Players = game:GetService("Players")
 function CMD(Str)
     local Cmd = (Str:lower():split(" "))
     if Cmd[1] == ((getgenv().Settings.prefix).."start") then
+        saymsg((getgenv().Settings.prefix).."delcash on")
         if Cmd[2] == nil then
             wait(2)
             saymsg((getgenv().Settings.prefix).."setup admin")
