@@ -400,8 +400,7 @@ Start.MouseButton1Down:Connect(function()
         if ItemCnt >= maxitems then
             equipall()
             local Player = game.Players.LocalPlayer
-
-            Player.Character.HumanoidRootPart.CFrame = CFrame.new(0,99999999,0)
+				
             local Lit = false
             coroutine.resume(coroutine.create(function()
                 while not Lit do 
@@ -449,8 +448,7 @@ end)
 
 ForceCrash.MouseButton1Down:Connect(function()
 local Player = game.Players.LocalPlayer
-
-Player.Character.HumanoidRootPart.CFrame = CFrame.new(0,99999999,0)
+		
 local Lit = false
 coroutine.resume(coroutine.create(function()
     while not Lit do 
