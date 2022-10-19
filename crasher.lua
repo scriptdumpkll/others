@@ -300,9 +300,6 @@ Start.MouseButton1Down:Connect(function()
 		end
 
 		game:service"RunService":BindToRenderStep("RUNNNER_1",1,function()
-			if Paused == true then
-				repeat wait(0.001) until Paused == false
-			end
 			pcall(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.Crew.CrewFrame.Visible = false
 			end)
