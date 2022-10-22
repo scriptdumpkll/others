@@ -188,6 +188,7 @@ function CMD(Str)
         return
     end
     local Cmd = (Str:lower():split(" "))
+    local OLDMSG = Cmd
     if Cmd[1] == ((getgenv().Settings.prefix).."dupe") then 
         for i,v in pairs(Players:GetChildren()) do
             if (string.sub(string.lower(v.Name),1,string.len(Cmd[2]))) == string.lower(Cmd[2]) then
@@ -246,7 +247,7 @@ function CMD(Str)
         S.Cashaura = false
         Velocity(false)
     elseif Cmd[1] == ((getgenv().Settings.prefix).."line") then
-        Freeze(true)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
         local g = 4
         local function ReverseRotation(x)
             return x-(x*2)
@@ -272,9 +273,9 @@ function CMD(Str)
                 break
             end
         end
-        Freeze(false)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
         wait(0.5)
-        Freeze(true)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
     elseif Cmd[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
@@ -308,7 +309,7 @@ function CMD(Str)
         wait(0.25)
         plr.Character.HumanoidRootPart.Anchored = true
     elseif Cmd[1] == ((getgenv().Settings.prefix).."say") then
-            saymsg("["..Cmd[2].."]")
+        saymsg(OLDMSG:gsub(Settings['prefix'].."say ",""))
     elseif Cmd[1] == ((getgenv().Settings.prefix).."hide") then
         local plr = game:service"Players".LocalPlayer
         local player = game:service"Players".LocalPlayer
