@@ -335,6 +335,8 @@ function CMD(Str)
                 theplace = "Club"
             elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
+            elseif string.lower(Cmd[3]) == "void" then
+                theplace = "Void"
             end
             if theplace then
                 local ko_data = KnockPlr(msg[2])
