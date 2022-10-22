@@ -136,7 +136,7 @@ local function KnockPlr(plr_name)
         local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         repeat
             pcall(function()
-                fps(20)
+                setfpscap(20)
                 reach(true)
                 local combat = game.Players.LocalPlayer.Character:FindFirstChild("Combat") or game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
                 if combat then
