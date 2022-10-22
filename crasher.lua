@@ -3,18 +3,37 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
+local remotes = {
+	"CHECKER_1",
+	"CHECKER_2",
+	"TeleportDetect",
+	"OneMoreTime",
+	"BreathingHAMON",
+	"VirusCough",
+}
+
+local __namecall
+__namecall = hookmetamethod(game, "__namecall", function(...)
+	local args = {...}
+	local method = getnamecallmethod()
+	if (method == "FireServer" and args[1].Name == "MainEvent" and table.find(remotes, args[2])) then
+		return
+	end
+	return __namecall(table.unpack(args))
+end)
+
 if game:service"CoreGui":FindFirstChild("JMANbyJared") then
 	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
 end
-
-wait(1)
 
 game.StarterGui:SetCore("SendNotification", {
 	Title = "JMAN CRASHER";
 	Text = "loading...";
 	Duration = 3;
 })
+
 repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
+
 game.StarterGui:SetCore("SendNotification", {
 	Title = "JMAN CRASHER";
 	Text = "loaded";
@@ -92,26 +111,6 @@ Status.Font = Enum.Font.SourceSans
 Status.Text = "Status: 0 / "..tostring(maxitems).." \nPercent: 0%"
 Status.TextColor3 = Color3.fromRGB(0, 0, 0)
 Status.TextSize = 14.000
-
-
-local remotes = {
-	"CHECKER_1",
-	"CHECKER_2",
-	"TeleportDetect",
-	"OneMoreTime",
-	"BreathingHAMON",
-	"VirusCough",
-}
-
-local __namecall
-__namecall = hookmetamethod(game, "__namecall", function(...)
-	local args = {...}
-	local method = getnamecallmethod()
-	if (method == "FireServer" and args[1].Name == "MainEvent" and table.find(remotes, args[2])) then
-		return
-	end
-	return __namecall(table.unpack(args))
-end)
 
 local av1 = game:GetService("VirtualUser")
 game:GetService("Players").LocalPlayer.Idled:connect(function()
@@ -234,6 +233,7 @@ local function check_lockpicks()
 end
 
 local function DeleteChar()
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-305.804443, 21.2549915, -420.076233, -0.00985035207, -9.21506214e-08, -0.999951482, -5.95487482e-09, 1, -9.20964354e-08, 0.999951482, 5.04740338e-09, -0.00985035207) * CFrame.new(0, 1000, 0)
 	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 		if v:IsA('MeshPart') or v:IsA('Part') or v:IsA('Accessory') then
 			v:Destroy()
@@ -355,7 +355,7 @@ Start.MouseButton1Down:Connect(function()
 				local s,e = pcall(function()
 					if v:IsA('Tool') then
 						repeat 
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Parent.Position)  
+							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Parent.Position) * CFrame.new(0, 2, 0) 
 							task.wait()
 						until not v
 					end
@@ -401,7 +401,6 @@ Start.MouseButton1Down:Connect(function()
 				end
 				T = T + 1
 			until T >= 35
-
 			wait(3)
 			Lit = true
 			DeleteChar()
@@ -440,9 +439,7 @@ ForceCrash.MouseButton1Down:Connect(function()
 			v.Parent = Player.Character
 		end
 	end
-
 	local T = 0
-
 	repeat
 		for i,v in pairs(Player.Backpack:GetChildren()) do
 			if v:IsA('Tool') then
@@ -451,7 +448,6 @@ ForceCrash.MouseButton1Down:Connect(function()
 		end
 		T = T + 1
 	until T >= 35
-
 	wait(3)
 	Lit = true
 	DeleteChar()
