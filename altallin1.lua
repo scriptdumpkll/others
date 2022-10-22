@@ -152,7 +152,9 @@ local function KnockPlr(plr_name)
                     end
                     game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,7,0)
-                    game.Players.LocalPlayer.Character:FindFirstChild("Combat"):Activate()
+                    if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
+                        game.Players.LocalPlayer.Character:FindFirstChild("Combat"):Activate()
+                    end
                     task.wait()
                 end
             end)
@@ -334,7 +336,7 @@ function CMD(Str)
         if player.UserId == getgenv().Alts.Alt1 then
             player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
-            if Cmd[3] == nil or string.lower(Cmd[3]) == "host" then
+            if Cmd[3] == nil or string.lower(Cmd[3]) == "host" and not table.find(TPAREAS, Admin) and not table.find(TPAREAS, Bank) and not table.find(TPAREAS, Club) and not table.find(TPAREAS, Train) and not table.find(TPAREAS, Void) then
                 theplace = "HOST"
             elseif string.lower(Cmd[3]) == "admin" then
                 theplace = "Admin"
