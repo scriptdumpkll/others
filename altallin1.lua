@@ -325,21 +325,21 @@ function CMD(Str)
         if player.UserId == getgenv().Alts.Alt1 then
             player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
-            if msg[3] == nil or string.lower(msg[3]) == "host" then
+            if Cmd[3] == nil or string.lower(Cmd[3]) == "host" then
                 theplace = "HOST"
-            elseif string.lower(msg[3]) == "admin" then
+            elseif string.lower(Cmd[3]) == "admin" then
                 theplace = "Admin"
-            elseif string.lower(msg[3]) == "train" then
+            elseif string.lower(Cmd[3]) == "train" then
                 theplace = "Train"
-            elseif string.lower(msg[3]) == "club" then
+            elseif string.lower(Cmd[3]) == "club" then
                 theplace = "Club"
-            elseif string.lower(msg[3]) == "bank" then
+            elseif string.lower(Cmd[3]) == "bank" then
                 theplace = "Bank"
             elseif string.lower(Cmd[3]) == "void" then
                 theplace = "Void"
             end
             if theplace then
-                local ko_data = KnockPlr(msg[2])
+                local ko_data = KnockPlr(Cmd[2])
                 if ko_data then
                     local Target = game.Players[ko_data]
                     local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
