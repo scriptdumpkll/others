@@ -255,7 +255,15 @@ Start.MouseButton1Down:Connect(function()
 	if game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking') then
 		game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking'):Destroy()
 	end
+	local Anim = Instance.new("Animation")
+	Anim.AnimationId = "http://www.roblox.com/asset/?id=782841498"
+	Load = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(Anim)
+	Load:Play()
 
+	Animate = game.Players.LocalPlayer.Character.Animate
+	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=10921301576"
+	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=0"
+		
 	if Running == false then
 		notify("JMAN CRASHER","started",5)
 		notify("JMAN CRASHER","this will take awhile..",10)
@@ -416,9 +424,11 @@ Pause.MouseButton1Click:Connect(function()
 	if Paused then
 		Pause.Text = "Paused"
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
+		Load:Stop()
 		notify("JMAN CRASHER","paused",3)
 	else
 		Pause.Text = "Resumed"
+		Load:Play()
 		notify("JMAN CRASHER", "resumed",3)
 	end
 end)
