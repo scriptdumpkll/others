@@ -136,6 +136,7 @@ local function KnockPlr(plr_name)
         local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
         repeat
             pcall(function()
+                fps(20)
                 reach(true)
                 local combat = game.Players.LocalPlayer.Character:FindFirstChild("Combat") or game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
                 if combat then
@@ -156,6 +157,7 @@ local function KnockPlr(plr_name)
             task.wait()
         until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
         reach(false)
+        setfpscap(Settings['fps'])
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
         return Target.Name
     end
@@ -344,7 +346,7 @@ function CMD(Str)
                 if ko_data then
                     local Target = game.Players[ko_data]
                     local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
-                    if Target.Character and game.Players.LocalPlayer.Character and Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == true then
+                    if Target.Character and game.Players.LocalPlayer.Character then
                         repeat
                             pcall(function()
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
