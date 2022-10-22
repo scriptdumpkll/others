@@ -1,3 +1,5 @@
+local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()local f=getcallingscript()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)
+
 settings().Physics.PhysicsEnvironmentalThrottle = 1
 settings().Rendering.QualityLevel = 'Level01'
 UserSettings():GetService("UserGameSettings").MasterVolume = 0
@@ -165,13 +167,18 @@ end
 
 workspace.Gravity = 0
 
+for d, e in pairs(game.Workspace:GetDescendants()) do
+	if e:IsA("Seat") then
+		e:Destroy()
+	end
+end
+
 spawn(function()
     repeat task.wait(0.2) until Player.Character and Player.Character:FindFirstChildWhichIsA("Humanoid") and Player.Character:FindFirstChild("FULLY_LOADED_CHAR")
     task.wait(0.1)
     S.Loaded = true
     saymsg("loaded")
     task.wait(0.5)
-    local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()local f=getcallingscript()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)
 end)
 
 function CMD(Str)
