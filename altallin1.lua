@@ -325,21 +325,19 @@ function CMD(Str)
         if player.UserId == getgenv().Alts.Alt1 then
             player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
-            if Cmd[3] == nil or string.lower(Cmd[3]) == "host" then
+            if msg[3] == nil or string.lower(msg[3]) == "host" then
                 theplace = "HOST"
-            elseif string.lower(Cmd[3]) == "admin" then
+            elseif string.lower(msg[3]) == "admin" then
                 theplace = "Admin"
-            elseif string.lower(Cmd[3]) == "train" then
+            elseif string.lower(msg[3]) == "train" then
                 theplace = "Train"
-            elseif string.lower(Cmd[3]) == "club" then
+            elseif string.lower(msg[3]) == "club" then
                 theplace = "Club"
-            elseif string.lower(Cmd[3]) == "bank" then
+            elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
-            elseif string.lower(Cmd[3]) == "void" then
-                theplace = "Void"
             end
             if theplace then
-                local ko_data = KnockPlr(Cmd[2])
+                local ko_data = KnockPlr(msg[2])
                 if ko_data then
                     local Target = game.Players[ko_data]
                     local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -349,7 +347,6 @@ function CMD(Str)
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
                                     game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.UpperTorso.Position.X,Target.Character.UpperTorso.Position.Y+1.3,Target.Character.UpperTorso.Position.Z)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
-                                    task.wait()
                                 end
                             end)
                             wait(.5)
@@ -362,8 +359,6 @@ function CMD(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Club'],",")[1],string.split(TPAREAS['Club'],",")[2],string.split(TPAREAS['Club'],",")[3])
                         elseif theplace == "Bank" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Bank'],",")[1],string.split(TPAREAS['Bank'],",")[2],string.split(TPAREAS['Bank'],",")[3])
-                        elseif theplace == "Void" then
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Void'],",")[1],string.split(TPAREAS['Void'],",")[2],string.split(TPAREAS['Void'],",")[3])
                         elseif theplace == "HOST" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = op.Character.HumanoidRootPart.CFrame+op.Character.HumanoidRootPart.CFrame.lookVector*3.5
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.Angles(0, math.rad(180), 0)
@@ -378,12 +373,10 @@ function CMD(Str)
                             pcall(function()
                                 game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                             end)
-                            wait(0.01)
+                            wait(0.01) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        wait(2)
-                        player.Character.HumanoidRootPart.Anchored = true
                     end
                 end
             end
