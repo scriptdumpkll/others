@@ -328,6 +328,7 @@ function CMD(Str)
         end
     elseif Cmd[1] == ((getgenv().Settings.prefix).."god") then
         local plr = game:service"Players".LocalPlayer
+        if game.Players.LocalPlayer.UserId == getgenv().Alts.Alt1 then return end
         if plr.Character:FindFirstChild("BodyEffects"):FindFirstChild("Attacking") then
             saymsg("[god]")
             plr.Character:FindFirstChild("BodyEffects"):FindFirstChild("Attacking"):Destroy()
