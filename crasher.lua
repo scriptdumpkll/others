@@ -1,7 +1,20 @@
-
 if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
+
+if game:service"CoreGui":FindFirstChild("JMANbyJared") then
+	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
+end
+
+game.StarterGui:SetCore("SendNotification", {
+	Title = "JMAN CRASHER";
+	Text = "loading...";
+	Icon = "http://www.roblox.com/asset/?id=11160325159";
+	Duration = 3;
+})
+
+
+repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
 
 local remotes = {
 	"CHECKER_1",
@@ -22,30 +35,11 @@ __namecall = hookmetamethod(game, "__namecall", function(...)
 	return __namecall(table.unpack(args))
 end)
 
-if game:service"CoreGui":FindFirstChild("JMANbyJared") then
-	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
-end
-
-game.StarterGui:SetCore("SendNotification", {
-	Title = "JMAN CRASHER";
-	Text = "loading...";
-	Duration = 3;
-})
-
-repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
-
 game.StarterGui:SetCore("SendNotification", {
 	Title = "JMAN CRASHER";
 	Text = "loaded";
-	Duration = 3;
-})
-
-
-game.StarterGui:SetCore("SendNotification", {
-	Title = "JMAN CRASHER";
-	Text = "Made By jaredd#0995";
 	Icon = "http://www.roblox.com/asset/?id=11160325159";
-	Duration = 9e9;
+	Duration = 3;
 })
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -138,6 +132,7 @@ function notify(a,b,c)
 	game:service"StarterGui":SetCore("SendNotification",{
 		Title = a;
 		Text = b;
+		Icon = "http://www.roblox.com/asset/?id=11160325159";
 		Duration = c;
 	})
 end
@@ -176,15 +171,6 @@ coroutine.resume(coroutine.create(function()
 		end
 	end
 end))
-
-local function uneqipall()
-	for i,v in pairs(player.Character:GetChildren()) do
-		if v:IsA("Tool") then
-			v.Parent = player.Backpack
-		end
-	end
-end
-
 
 local function equipall()
 	for i,v in pairs(player.Backpack:GetChildren()) do
@@ -233,7 +219,6 @@ local function check_lockpicks()
 end
 
 local function DeleteChar()
-    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-305.804443, 21.2549915, -420.076233, -0.00985035207, -9.21506214e-08, -0.999951482, -5.95487482e-09, 1, -9.20964354e-08, 0.999951482, 5.04740338e-09, -0.00985035207) * CFrame.new(0, 1000, 0)
 	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 		if v:IsA('MeshPart') or v:IsA('Part') or v:IsA('Accessory') then
 			v:Destroy()
@@ -252,23 +237,30 @@ player.DataFolder.Currency.Changed:Connect(function()
 end)
 
 Start.MouseButton1Down:Connect(function()
+	game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+
+	game.StarterGui:SetCore("SendNotification", {
+		Title = "JMAN CRASHER";
+		Text = "Made By jaredd#0995";
+		Icon = "http://www.roblox.com/asset/?id=11160325159";
+		Duration = 9e9;
+	})
+
 	if game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking') then
 		game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking'):Destroy()
 	end
-	local Anim = Instance.new("Animation")
-	Anim.AnimationId = "http://www.roblox.com/asset/?id=782841498"
-	Load = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(Anim)
-	Load:Play()
 
 	Animate = game.Players.LocalPlayer.Character.Animate
 	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=10921301576"
-	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=0"
+	Animate.idle.Animation2.AnimationId = "http://www.roblox.com/asset/?id=10921301576"
+	Animate.fall.FallAnim.AnimationId = "http://www.roblox.com/asset/?id=10921301576"
 		
 	if Running == false then
 		notify("JMAN CRASHER","started",5)
 		notify("JMAN CRASHER","this will take awhile..",10)
 
 		Running = true
+
 		local Items = {
 			"[Flowers] - $5", "[Glock] - $500", "[Cranberry] - $3", "[TacticalShotgun] - $1750", 
 			"[P90] - $1000", "[AUG] - $1950", "[PepperSpray] - $75", "[Silencer] - $400", "[Donut] - $5", 
@@ -282,7 +274,9 @@ Start.MouseButton1Down:Connect(function()
 			"[Popcorn] - $14", "[Nunchucks] - $450", "[HotDog] - $8", "[Taser] - $1250", "[Key] - $125", 
 			"[Meat] - $12", "[Da Milk] - $7", "[Rifle] - $1550", 
 		}
+
 		uneqipall()
+
 		repeat
 			if Paused == true then
 				repeat wait(0.001) until Paused == false
@@ -291,6 +285,7 @@ Start.MouseButton1Down:Connect(function()
 			fireclickdetector(game.Workspace.Ignored.Shop["[Grenade] - $700"].ClickDetector)
 			task.wait()
 		until check_grenade() >= 11
+
 		repeat
 			if Paused == true then
 				repeat wait(0.001) until Paused == false
@@ -299,6 +294,7 @@ Start.MouseButton1Down:Connect(function()
 			fireclickdetector(game.Workspace.Ignored.Shop["[LockPicker] - $100"].ClickDetector)
 			task.wait()
 		until check_lockpicks() >= 11
+
 		local function equipallcans()
 			for i,v in pairs(player.Backpack:GetChildren()) do
 				if v:IsA("Tool") and v.Name == "[SprayCan]" then
@@ -334,6 +330,7 @@ Start.MouseButton1Down:Connect(function()
 				task.wait()
 			until GoodOverride == true
 		end
+
 		for i,v in pairs(Items) do
 			equipall()
 			local place = shop:FindFirstChild(v)
@@ -367,13 +364,15 @@ Start.MouseButton1Down:Connect(function()
 							task.wait()
 						until not v
 					end
-				end) if e then print(e) end
+				end)
 			end
+
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 				if v:IsA('Tool') then
 					Count = Count + 1
 				end
 			end
+
 			for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
 				if v:IsA('Tool') then
 					Count = Count + 1
@@ -381,19 +380,23 @@ Start.MouseButton1Down:Connect(function()
 			end
 			task.wait()
 		until ItemCnt >= maxitems
+
 		pcall(function() game:service"RunService":UnBindToRenderStep("CANNER") end)
+
 		equipall()
+
 		if ItemCnt >= maxitems then
 			equipall()
 			local Player = game.Players.LocalPlayer
-
 			local Lit = false
+			
 			coroutine.resume(coroutine.create(function()
 				while not Lit do 
 					game.StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 					task.wait()
 				end
 			end))
+
 			for i,v in pairs(Player.Backpack:GetChildren()) do
 				if v:IsA('Tool') then
 					v.Parent = Player.Character
@@ -411,6 +414,8 @@ Start.MouseButton1Down:Connect(function()
 			until T >= 35
 			wait(3)
 			Lit = true
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-305.804443, 21.2549915, -420.076233, -0.00985035207, -9.21506214e-08, -0.999951482, -5.95487482e-09, 1, -9.20964354e-08, 0.999951482, 5.04740338e-09, -0.00985035207) * CFrame.new(0, 1000, 0)
+			wait(.5)
 			DeleteChar()
 		end
 	else
@@ -420,14 +425,18 @@ Start.MouseButton1Down:Connect(function()
 end)
 
 Pause.MouseButton1Click:Connect(function()
+	if not Running then return end
 	Paused = not Paused
 	if Paused then
 		Pause.Text = "Paused"
+		uneqipall()
+		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
 		Load:Stop()
 		notify("JMAN CRASHER","paused",3)
 	else
-		Pause.Text = "Resumed"
+		Pause.Text = "Pause"
+		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 		Load:Play()
 		notify("JMAN CRASHER", "resumed",3)
 	end
@@ -460,5 +469,7 @@ ForceCrash.MouseButton1Down:Connect(function()
 	until T >= 35
 	wait(3)
 	Lit = true
+	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(-305.804443, 21.2549915, -420.076233, -0.00985035207, -9.21506214e-08, -0.999951482, -5.95487482e-09, 1, -9.20964354e-08, 0.999951482, 5.04740338e-09, -0.00985035207) * CFrame.new(0, 1000, 0)
+	wait(.5)
 	DeleteChar()
 end)
