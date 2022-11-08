@@ -115,6 +115,11 @@ function CMD(Str)
     elseif Cmd[1] == ((getgenv().Settings.prefix).."stop") then
         wait(3)
         saymsg("/unlock")
+    elseif Cmd[1] == ((getgenv().Settings.prefix).."dp") then
+        wait(3)
+        saymsg((getgenv().Settings.prefix).."host around")
+        wait(3)
+        saymsg((getgenv().Settings.prefix).."drop")
     end
 end
 
