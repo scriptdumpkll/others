@@ -392,7 +392,7 @@ function CMD(Str)
                             end)
                             wait(0.01) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
-                        wait(1)
+                        wait(0.5)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
                         setfpscap(Settings['fps'])
                     end
