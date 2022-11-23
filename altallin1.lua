@@ -309,7 +309,7 @@ function CMD(Str)
         wait(0.25)
         plr.Character.HumanoidRootPart.Anchored = true
     elseif Cmd[1] == ((getgenv().Settings.prefix).."say") then
-        saymsg(OLDMSG:gsub(Settings['prefix'].."say ",""))
+        saymsg(Cmd[2])
     elseif Cmd[1] == ((getgenv().Settings.prefix).."hide") then
         local plr = game:service"Players".LocalPlayer
         local player = game:service"Players".LocalPlayer
@@ -380,7 +380,7 @@ function CMD(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = op.Character.HumanoidRootPart.CFrame+op.Character.HumanoidRootPart.CFrame.lookVector*3.5
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.Angles(0, math.rad(180), 0)
                         end
-                        wait(3)
+                        wait(1)
                         repeat
                             if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
                                 wait(1)
