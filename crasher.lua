@@ -314,7 +314,7 @@ Start.MouseButton1Down:Connect(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.PhoneCalls.Visible = false
 			end)
 
-			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", 15500191)
+			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", 13388079)
 		end)
 
 		for i,v in pairs(Items) do
