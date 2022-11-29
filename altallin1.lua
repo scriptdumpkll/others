@@ -364,7 +364,7 @@ function CMD(Str)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                                 end
                             end)
-                            wait(.5)
+                            wait(1)
                         until Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         if theplace == "Admin" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Admin'],",")[1],string.split(TPAREAS['Admin'],",")[2],string.split(TPAREAS['Admin'],",")[3])
@@ -390,9 +390,9 @@ function CMD(Str)
                             pcall(function()
                                 game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                             end)
-                            wait(0.01) 
+                            wait(1) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
-                        wait(0.5)
+                        wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
                         setfpscap(Settings['fps'])
                     end
