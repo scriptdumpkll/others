@@ -13,7 +13,6 @@ game.StarterGui:SetCore("SendNotification", {
 	Duration = 3;
 })
 
-
 repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
 
 local remotes = {
