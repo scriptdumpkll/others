@@ -263,7 +263,7 @@ Start.MouseButton1Down:Connect(function()
 		local Items = {
 			"[Flowers] - $5", "[Glock] - $515", "[Cranberry] - $3", "[TacticalShotgun] - $1803", 
 			"[P90] - $1030", "[AUG] - $2009", "[PepperSpray] - $77", "[Silencer] - $567", "[Donut] - $5", 
-			"[SMG] - $773", "[AR] - $1288", "[Shotgun] - $1288", "[Taser] - $1030", "[Weights] - $124", 
+			"[SMG] - $773", "[AR] - $1030", "[Shotgun] - $1288", "[Taser] - $1030", "[Weights] - $124", 
 			"[HeavyWeights] - $258", "[Popcorn] - $7", "[Camera] - $103", "[Chicken] - $7", "[Pizza] - $5", 
 			"[Flashlight] - $10", "[Bat] - $283", "[Lettuce] - $5", "[Pitchfork] - $330", "[Taco] - $2", 
 			"[Hamburger] - $5", "[Lemonade] - $3", "[SledgeHammer] - $361", "[LMG] - $3863", 
