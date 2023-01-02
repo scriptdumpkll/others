@@ -290,7 +290,7 @@ Start.MouseButton1Down:Connect(function()
 			if Paused == true then
 				repeat wait(0.001) until Paused == false
 			end
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[LockPicker] - $129"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Z)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[LockPicker] - $129"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $129"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $129"].Head.Position.Z)
 			fireclickdetector(game.Workspace.Ignored.Shop["[LockPicker] - $129"].ClickDetector)
 			task.wait()
 		until check_lockpicks() >= 11
