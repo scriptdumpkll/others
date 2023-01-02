@@ -262,17 +262,17 @@ Start.MouseButton1Down:Connect(function()
 		Running = true
 
 		local Items = {
-			"[Flowers] - $5", "[Glock] - $500", "[Cranberry] - $3", "[TacticalShotgun] - $1750", 
-			"[P90] - $1000", "[AUG] - $1950", "[PepperSpray] - $75", "[Silencer] - $400", "[Donut] - $5", 
-			"[SMG] - $750", "[AR] - $1000", "[Shotgun] - $1250", "[Taser] - $1000", "[Weights] - $120", 
-			"[HeavyWeights] - $250", "[Popcorn] - $7", "[Camera] - $100", "[Chicken] - $7", "[Pizza] - $5", 
-			"[Flashlight] - $10", "[Bat] - $250", "[Lettuce] - $5", "[Pitchfork] - $320", "[Taco] - $2", 
-			"[Hamburger] - $5", "[Lemonade] - $3", "[SledgeHammer] - $350", "[LMG] - $3750", 
-			"[Starblox Latte] - $5", "[StopSign] - $300", "[SilencerAR] - $1250", "[AK47] - $2250", 
-			"[DrumGun] - $3000", "[Money Gun] - $777", "[Shovel] - $320", "[BrownBag] - $25", "[Shotgun] - $1250", 
-			"[Flashbang] - $550", "[Double-Barrel SG] - $1400", "[Revolver] - $1300", "[Donut] - $10", "[Pencil] - $175", 
-			"[Popcorn] - $14", "[Nunchucks] - $450", "[HotDog] - $8", "[Taser] - $1250", "[Key] - $125", 
-			"[Meat] - $12", "[Da Milk] - $7", "[Rifle] - $1550", 
+			"[Flowers] - $5", "[Glock] - $515", "[Cranberry] - $3", "[TacticalShotgun] - $1803", 
+			"[P90] - $1030", "[AUG] - $2009", "[PepperSpray] - $77", "[Silencer] - $567", "[Donut] - $5", 
+			"[SMG] - $773", "[AR] - $1288", "[Shotgun] - $1288", "[Taser] - $1030", "[Weights] - $124", 
+			"[HeavyWeights] - $258", "[Popcorn] - $7", "[Camera] - $103", "[Chicken] - $7", "[Pizza] - $5", 
+			"[Flashlight] - $10", "[Bat] - $283", "[Lettuce] - $5", "[Pitchfork] - $330", "[Taco] - $2", 
+			"[Hamburger] - $5", "[Lemonade] - $3", "[SledgeHammer] - $361", "[LMG] - $3863", 
+			"[Starblox Latte] - $5", "[StopSign] - $309", "[SilencerAR] - $1288", "[AK47] - $2318", 
+			"[DrumGun] - $3090", "[Money Gun] - $800", "[Shovel] - $330", "[BrownBag] - $26", "[Shotgun] - $1288", 
+			"[Flashbang] - $567", "[Double-Barrel SG] - $1442", "[Revolver] - $1339", "[Donut] - $10", "[Pencil] - $180", 
+			"[Popcorn] - $14", "[Nunchucks] - $464", "[HotDog] - $8", "[Taser] - $1288", "[Key] - $129", 
+			"[Meat] - $12", "[Da Milk] - $7", "[Rifle] - $1597", 
 		}
 
 		uneqipall()
@@ -281,8 +281,8 @@ Start.MouseButton1Down:Connect(function()
 			if Paused == true then
 				repeat wait(0.001) until Paused == false
 			end
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[Grenade] - $700"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[Grenade] - $700"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[Grenade] - $700"].Head.Position.Z)
-			fireclickdetector(game.Workspace.Ignored.Shop["[Grenade] - $700"].ClickDetector)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[Grenade] - $721"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[Grenade] - $700"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[Grenade] - $700"].Head.Position.Z)
+			fireclickdetector(game.Workspace.Ignored.Shop["[Grenade] - $721"].ClickDetector)
 			task.wait()
 		until check_grenade() >= 11
 
@@ -290,8 +290,8 @@ Start.MouseButton1Down:Connect(function()
 			if Paused == true then
 				repeat wait(0.001) until Paused == false
 			end
-			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Z)
-			fireclickdetector(game.Workspace.Ignored.Shop["[LockPicker] - $100"].ClickDetector)
+			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[LockPicker] - $129"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Y - 7, game:GetService("Workspace").Ignored.Shop["[LockPicker] - $100"].Head.Position.Z)
+			fireclickdetector(game.Workspace.Ignored.Shop["[LockPicker] - $129"].ClickDetector)
 			task.wait()
 		until check_lockpicks() >= 11
 
