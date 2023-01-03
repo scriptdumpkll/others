@@ -429,14 +429,12 @@ Pause.MouseButton1Click:Connect(function()
 	if Paused then
 		Pause.Text = "Paused"
 		uneqipall()
-		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
-		Load:Stop()
 		notify("JMAN CRASHER","paused",3)
 	else
 		Pause.Text = "Pause"
-		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
-		Load:Play()
+		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 		notify("JMAN CRASHER", "resumed",3)
 	end
 end)
