@@ -92,7 +92,7 @@ ForceCrash.Text = "Force Crash"
 ForceCrash.TextColor3 = Color3.fromRGB(0, 0, 0)
 ForceCrash.TextSize = 14.000
 
-local maxitems = 1400
+local maxitems = 1550
 Status.Name = "Status"
 Status.Parent = Frame
 Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
