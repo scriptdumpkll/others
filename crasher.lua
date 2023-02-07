@@ -6,13 +6,6 @@ if game:service"CoreGui":FindFirstChild("JMANbyJared") then
 	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
 end
 
-game.StarterGui:SetCore("SendNotification", {
-	Title = "JMAN CRASHER";
-	Text = "loading...";
-	Icon = "http://www.roblox.com/asset/?id=11160325159";
-	Duration = 3;
-})
-
 repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
 
 local remotes = {
@@ -33,13 +26,6 @@ __namecall = hookmetamethod(game, "__namecall", function(...)
 	end
 	return __namecall(table.unpack(args))
 end)
-
-game.StarterGui:SetCore("SendNotification", {
-	Title = "JMAN CRASHER";
-	Text = "loaded";
-	Icon = "http://www.roblox.com/asset/?id=11160325159";
-	Duration = 3;
-})
 
 local ScreenGui = Instance.new("ScreenGui")
 local Frame = Instance.new("Frame")
@@ -236,8 +222,6 @@ player.DataFolder.Currency.Changed:Connect(function()
 end)
 
 Start.MouseButton1Down:Connect(function()
-	game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
-
 	game.StarterGui:SetCore("SendNotification", {
 		Title = "JMAN CRASHER";
 		Text = "Made By jaredd#0995";
@@ -245,9 +229,6 @@ Start.MouseButton1Down:Connect(function()
 		Duration = 9e9;
 	})
 
-	if game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking') then
-		game.Players.LocalPlayer.Character:FindFirstChild("BodyEffects"):FindFirstChild('Attacking'):Destroy()
-	end
 
 	Animate = game.Players.LocalPlayer.Character.Animate
 	Animate.idle.Animation1.AnimationId = "http://www.roblox.com/asset/?id=10921301576"
@@ -270,7 +251,7 @@ Start.MouseButton1Down:Connect(function()
 			"[Starblox Latte] - $5", "[StopSign] - $309", "[SilencerAR] - $1288", "[AK47] - $2318", 
 			"[DrumGun] - $3090", "[Money Gun] - $800", "[Shovel] - $330", "[BrownBag] - $26", "[Shotgun] - $1288", 
 			"[Flashbang] - $567", "[Double-Barrel SG] - $1442", "[Revolver] - $1339", "[Donut] - $10", "[Pencil] - $180", 
-			"[Popcorn] - $14", "[Nunchucks] - $464", "[HotDog] - $8", "[Taser] - $1288", "[Key] - $129", 
+		    "[Nunchucks] - $464", "[HotDog] - $8", "[Taser] - $1288", "[Key] - $129", 
 			"[Meat] - $12", "[Da Milk] - $7", "[Rifle] - $1597", 
 		}
 
@@ -429,12 +410,10 @@ Pause.MouseButton1Click:Connect(function()
 	if Paused then
 		Pause.Text = "Paused"
 		uneqipall()
-		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, true)
 		game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 8, 0)
 		notify("JMAN CRASHER","paused",3)
 	else
 		Pause.Text = "Pause"
-		game:GetService("StarterGui"):SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
 		notify("JMAN CRASHER", "resumed",3)
 	end
 end)
