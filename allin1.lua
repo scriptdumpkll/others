@@ -58,196 +58,196 @@ local SilentAimSection = AimingTab:CreateSector("Main Commands", "left")
 
 SilentAimSection:AddToggle('Drop', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."drop")
+		x.MessagePosted:fire(prefix.."drop")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."stop")
+		x.MessagePosted:fire(prefix.."stop")
 	end
 end)
 
 SilentAimSection:AddToggle('Delcash', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."delcash on")
+		x.MessagePosted:fire(prefix.."delcash on")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."delcash off")
+		x.MessagePosted:fire(prefix.."delcash off")
 	end
 end)
 
 SilentAimSection:AddToggle('Wallet', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."money show")
+		x.MessagePosted:fire(prefix.."money show")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."money hide")
+		x.MessagePosted:fire(prefix.."money hide")
 	end
 end)
 
 
 SilentAimSection:AddToggle('Airlock', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."airlock")
+		x.MessagePosted:fire(prefix.."airlock")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."unlock")
+		x.MessagePosted:fire(prefix.."unlock")
 	end
 end)
 
 SilentAimSection:AddToggle('Ground', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."ground")
+		x.MessagePosted:fire(prefix.."ground")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."unground")
+		x.MessagePosted:fire(prefix.."unground")
 	end
 end)
 
 SilentAimSection:AddToggle('Hide', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."hide")
+		x.MessagePosted:fire(prefix.."hide")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."unhide")
+		x.MessagePosted:fire(prefix.."unhide")
 	end
 end)
 
 SilentAimSection:AddToggle('Dance', false, function(State)
     if State then
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."vibe")
+		x.MessagePosted:fire(prefix.."vibe")
 	else
-		local Prefix = getgenv().Settings.prefix
+		local prefix = getgenv().Settings.prefix
 		game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 		local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-		x.MessagePosted:fire(Prefix.."unvibe")
+		x.MessagePosted:fire(prefix.."unvibe")
 	end
 end)
 
 local CameraLockSection = AimingTab:CreateSector("Setup", "right")
 
 CameraLockSection:AddButton('Admin', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup admin")
+	x.MessagePosted:fire(prefix.."setup admin")
 end)
 
 CameraLockSection:AddButton('Bank', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup bank")
+	x.MessagePosted:fire(prefix.."setup bank")
 end)
 
 CameraLockSection:AddButton('Club', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup club")
+	x.MessagePosted:fire(prefix.."setup club")
 end)
 
 CameraLockSection:AddButton('Train', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup train")
+	x.MessagePosted:fire(prefix.."setup train")
 end)
 
 CameraLockSection:AddButton('School', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup school")
+	x.MessagePosted:fire(prefix.."setup school")
 end)
 
 CameraLockSection:AddButton('Basketball', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup basketball")
+	x.MessagePosted:fire(prefix.."setup basketball")
 end)
 
 CameraLockSection:AddButton('Jail', function(State)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."setup jail")
+	x.MessagePosted:fire(prefix.."setup jail")
 end)
 
 local TargetAimSection = AimingTab:CreateSector("Target Commands", "left")
 
 TargetAimSection:AddTextbox('Bring',  nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."bring "..Text)
+	x.MessagePosted:fire(prefix.."bring "..Text)
 end)
 
 TargetAimSection:AddTextbox('Custom Drop', nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."cdrop "..Text)
+	x.MessagePosted:fire(prefix.."cdrop "..Text)
 end)
 
 TargetAimSection:AddTextbox('Surround', nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."to "..Text)
+	x.MessagePosted:fire(prefix.."to "..Text)
 end)
 
 TargetAimSection:AddTextbox('Dupe', nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."dupe "..Text)
+	x.MessagePosted:fire(prefix.."dupe "..Text)
 end)
 
 TargetAimSection:AddTextbox('Say', nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."say "..Text)
+	x.MessagePosted:fire(prefix.."say "..Text)
 end)
 
 TargetAimSection:AddTextbox('Fps', nil, function(Text)
-	local Prefix = getgenv().Settings.prefix
+	local prefix = getgenv().Settings.prefix
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer("", "System")
 	local x = require(game.Players.LocalPlayer.PlayerScripts.ChatScript.ChatMain)
-	x.MessagePosted:fire(Prefix.."fps "..Text)
+	x.MessagePosted:fire(prefix.."fps "..Text)
 end)
 
 Mouse.KeyDown:Connect(function(a)
