@@ -42,7 +42,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/commands.lua"))()
 
 Mouse.KeyDown:Connect(function(a)
     if a == "l" then
