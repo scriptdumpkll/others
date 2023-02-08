@@ -43,18 +43,6 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
 
-repeat
-    wait()
-until game:IsLoaded()
-
-
-getgenv().Settings = {
-    host = 274127150,
-    fps = 2,
-    prefix = '/',
-    advertmsg = 'vouch jaredd 0995',
-}  
-
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/eyedr3ss/storage/main/libraries/cattoware"))()
 Library.theme.topheight = 50
 Library.theme.accentcolor = Color3.fromRGB(173, 223, 173)
