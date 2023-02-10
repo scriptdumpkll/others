@@ -2,8 +2,8 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-if game:service"CoreGui":FindFirstChild("JMANbyJared") then
-	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
+if game:service"CoreGui":FindFirstChild("eyedress") then
+	game:service"CoreGui":FindFirstChild("eyedress"):Destroy()
 end
 
 repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
@@ -34,51 +34,51 @@ local Pause = Instance.new("TextButton")
 local ForceCrash = Instance.new("TextButton")
 local Status = Instance.new("TextLabel")
 
-ScreenGui.Name = "JMANbyJared"
+ScreenGui.Name = "eyedress"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Frame.Parent = ScreenGui
-Frame.BackgroundColor3 = Color3.fromRGB(144, 238, 144)
-Frame.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Frame.BackgroundColor3 = Color3.fromRGB(40, 36, 36)
+Frame.BorderColor3 = Color3.fromRGB(40, 36, 36)
 Frame.BorderSizePixel = 0
 Frame.Position = UDim2.new(0.043636363, 0, 0.667286217, 0)
-Frame.Size = UDim2.new(0, 100, 0, 132)
+Frame.Size = UDim2.new(0, 100, 0, 124)
 
 Start.Name = "Start"
 Start.Parent = Frame
-Start.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Start.BackgroundColor3 = Color3.fromRGB(64, 60, 60)
 Start.BorderSizePixel = 0
 Start.Position = UDim2.new(0.129999995, 0, 0.0938339531, 0)
 Start.Size = UDim2.new(0, 74, 0, 20)
 Start.Font = Enum.Font.SourceSans
 Start.Text = "Start"
-Start.TextColor3 = Color3.fromRGB(0, 0, 0)
+Start.TextColor3 = Color3.fromRGB(255, 255, 255)
 Start.TextSize = 14.000
 
 Pause.Name = "Pause"
 Pause.Parent = Frame
-Pause.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Pause.BackgroundColor3 = Color3.fromRGB(64, 60, 60)
 Pause.BorderSizePixel = 0
 Pause.Position = UDim2.new(0.129999995, 0, 0.305955112, 0)
 Pause.Size = UDim2.new(0, 74, 0, 20)
 Pause.Font = Enum.Font.SourceSans
 Pause.Text = "Pause"
-Pause.TextColor3 = Color3.fromRGB(0, 0, 0)
+Pause.TextColor3 = Color3.fromRGB(255, 255, 255)
 Pause.TextSize = 14.000
 
 ForceCrash.Name = "ForceCrash"
 ForceCrash.Parent = Frame
-ForceCrash.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+ForceCrash.BackgroundColor3 = Color3.fromRGB(64, 60, 60)
 ForceCrash.BorderSizePixel = 0
 ForceCrash.Position = UDim2.new(0.129999995, 0, 0.51807636, 0)
 ForceCrash.Size = UDim2.new(0, 74, 0, 20)
 ForceCrash.Font = Enum.Font.SourceSans
 ForceCrash.Text = "Force Crash"
-ForceCrash.TextColor3 = Color3.fromRGB(0, 0, 0)
+ForceCrash.TextColor3 = Color3.fromRGB(255, 255, 255)
 ForceCrash.TextSize = 14.000
 
-local maxitems = 1550
+local maxitems = 1400
 Status.Name = "Status"
 Status.Parent = Frame
 Status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
@@ -88,7 +88,7 @@ Status.Position = UDim2.new(0, 0, 0.734848499, 0)
 Status.Size = UDim2.new(0, 100, 0, 28)
 Status.Font = Enum.Font.SourceSans
 Status.Text = "Status: 0 / "..tostring(maxitems).." \nPercent: 0%"
-Status.TextColor3 = Color3.fromRGB(0, 0, 0)
+Status.TextColor3 = Color3.fromRGB(255, 255, 255)
 Status.TextSize = 14.000
 
 local av1 = game:GetService("VirtualUser")
@@ -106,7 +106,7 @@ local ws = workspace
 local shop = ws.Ignored:FindFirstChild("Shop")
 
 player:GetMouse().KeyDown:Connect(function(key)
-	if key:lower() == "v" then
+	if key:lower() == "m" then
 		Frame.Visible = not Frame.Visible
 	end
 end)
@@ -242,17 +242,17 @@ Start.MouseButton1Down:Connect(function()
 		Running = true
 
 		local Items = {
-			"[Flowers] - $5", "[Glock] - $515", "[Cranberry] - $3", "[TacticalShotgun] - $1803", 
-			"[P90] - $1030", "[AUG] - $2009", "[PepperSpray] - $77", "[Silencer] - $567", "[Donut] - $5", 
-			"[SMG] - $773", "[AR] - $1030", "[Shotgun] - $1288", "[Taser] - $1030", "[Weights] - $124", 
-			"[HeavyWeights] - $258", "[Popcorn] - $7", "[Camera] - $103", "[Chicken] - $7", "[Pizza] - $5", 
-			"[Flashlight] - $10", "[Bat] - $283", "[Lettuce] - $5", "[Pitchfork] - $330", "[Taco] - $2", 
-			"[Hamburger] - $5", "[Lemonade] - $3", "[SledgeHammer] - $361", "[LMG] - $3863", 
-			"[Starblox Latte] - $5", "[StopSign] - $309", "[SilencerAR] - $1288", "[AK47] - $2318", 
-			"[DrumGun] - $3090", "[Money Gun] - $800", "[Shovel] - $330", "[BrownBag] - $26", "[Shotgun] - $1288", 
-			"[Flashbang] - $567", "[Double-Barrel SG] - $1442", "[Revolver] - $1339", "[Donut] - $10", "[Pencil] - $180", 
-		    "[Nunchucks] - $464", "[HotDog] - $8", "[Taser] - $1288", "[Key] - $129", 
-			"[Meat] - $12", "[Da Milk] - $7", "[Rifle] - $1597", 
+			"[Flowers] - $5", "[Crossbow] - $155", "[Crossbow] - $155", "[Glock] - $515", "[Glock] - $515", "[Cranberry] - $3", "[Cranberry] - $3", "[TacticalShotgun] - $1803", "[TacticalShotgun] - $1803",
+			"[P90] - $1030", "[P90] - $1030", "[AUG] - $2009", "[AUG] - $2009", "[PepperSpray] - $77", "[PepperSpray] - $77", "[Silencer] - $567", "[Silencer] - $567", "[Donut] - $5", "[Donut] - $5",
+			"[SMG] - $773", "[SMG] - $773", "[AR] - $1030", "[AR] - $1030", "[Shotgun] - $1288", "[Shotgun] - $1288", "[Taser] - $1030", "[Taser] - $1030", "[Weights] - $124", "[Weights] - $124",
+			"[HeavyWeights] - $258", "[HeavyWeights] - $258", "[Popcorn] - $7", "[Popcorn] - $7", "[Camera] - $103", "[Camera] - $103", "[Chicken] - $7", "[Chicken] - $7", "[Pizza] - $5", "[Pizza] - $5",
+			"[Flashlight] - $10", "[Flashlight] - $10", "[Bat] - $283", "[Bat] - $283", "[Lettuce] - $5", "[Lettuce] - $5", "[Pitchfork] - $330", "[Pitchfork] - $330", "[Taco] - $2", "[Taco] - $2",
+			"[Hamburger] - $5", "[Hamburger] - $5", "[Lemonade] - $3", "[Lemonade] - $3", "[SledgeHammer] - $361", "[SledgeHammer] - $361", "[LMG] - $3863", "[LMG] - $3863",
+			"[Starblox Latte] - $5", "[Starblox Latte] - $5", "[StopSign] - $309", "[StopSign] - $309", "[SilencerAR] - $1288", "[SilencerAR] - $1288", "[AK47] - $2318", "[AK47] - $2318",  
+			"[DrumGun] - $3090", "[DrumGun] - $3090", "[Money Gun] - $800", "[Money Gun] - $800", "[Shovel] - $330", "[Shovel] - $330", "[BrownBag] - $26", "[BrownBag] - $26", "[Shotgun] - $1288", "[Shotgun] - $1288",
+			"[Flashbang] - $567", "[Flashbang] - $567", "[Double-Barrel SG] - $1442", "[Double-Barrel SG] - $1442", "[Revolver] - $1339","[Revolver] - $1339", "[Donut] - $10", "[Donut] - $10", "[Pencil] - $180", "[Pencil] - $180", 
+		    "[Nunchucks] - $464", "[Nunchucks] - $464", "[HotDog] - $8", "[HotDog] - $8", "[Taser] - $1288", "[Taser] - $1288", "[Key] - $129", "[Key] - $129", 
+			"[Meat] - $12", "[Meat] - $12", "[Da Milk] - $7", "[Da Milk] - $7", "[Rifle] - $1597", "[Rifle] - $1597"
 		}
 
 		uneqipall()
@@ -282,7 +282,17 @@ Start.MouseButton1Down:Connect(function()
 				end
 			end
 		end
-
+		getgenv().groupid = nil
+		local getGroups = game:GetService("GroupService"):GetGroupsAsync(game.Players.LocalPlayer.UserId)
+		if unpack(getGroups) == nil then
+		    warn('no groups'); return
+		else
+			for _, groupInfo in pairs(getGroups) do
+			    if _ == 1 then
+		            getgenv().groupid = groupInfo.Id
+		        end
+			end
+		end
 		game:service"RunService":BindToRenderStep("RUNNNER_1",1,function()
 			pcall(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.Crew.CrewFrame.Visible = false
@@ -294,7 +304,7 @@ Start.MouseButton1Down:Connect(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.PhoneCalls.Visible = false
 			end)
 
-			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", 13388079)
+			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", getgenv().groupid)
 		end)
 
 		for i,v in pairs(Items) do
@@ -311,19 +321,6 @@ Start.MouseButton1Down:Connect(function()
 			until GoodOverride == true
 		end
 
-		for i,v in pairs(Items) do
-			equipall()
-			local place = shop:FindFirstChild(v)
-			GoodOverride = false
-			if Paused == true then
-				repeat wait(0.001) until Paused == false
-			end
-			repeat
-				player.Character.HumanoidRootPart.CFrame = CFrame.new(place.Head.Position.X, place.Head.Position.Y - 6, place.Head.Position.Z)
-				fireclickdetector(place.ClickDetector)
-				task.wait()
-			until GoodOverride == true
-		end
 		uneqipall()
 		game:service"RunService":BindToRenderStep("CANNER",1,function()
 			equipallcans()
@@ -336,17 +333,13 @@ Start.MouseButton1Down:Connect(function()
 			game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game:GetService("Workspace").Ignored.Shop["[Flowers] - $5"].Head.Position.X, game:GetService("Workspace").Ignored.Shop["[Flowers] - $5"].Head.Position.Y - 5, game:GetService("Workspace").Ignored.Shop["[Flowers] - $5"].Head.Position.Z)
 			fireclickdetector(game:GetService("Workspace").Ignored.Shop["[Flowers] - $5"].ClickDetector)
 			Count = 0 
-			for i,v in pairs(game:GetService("Workspace").Ignored.ItemsDrop:GetDescendants()) do
-				local s,e = pcall(function()
-					if v:IsA('Tool') then
-						repeat 
-							game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Parent.Position) * CFrame.new(0, 2, 0) 
-							task.wait()
-						until not v
-					end
-				end)
-			end
 
+			for i,v in pairs(game:GetService("Workspace").Ignored.ItemsDrop:GetDescendants()) do
+				if v:IsA("TouchTransmitter") then
+					firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, v.Parent, 0)
+				end
+			end
+			
 			for i,v in pairs(game.Players.LocalPlayer.Backpack:GetChildren()) do
 				if v:IsA('Tool') then
 					Count = Count + 1
@@ -358,7 +351,7 @@ Start.MouseButton1Down:Connect(function()
 					Count = Count + 1
 				end   
 			end
-			task.wait()
+			task.wait(0.001)
 		until ItemCnt >= maxitems
 
 		pcall(function() game:service"RunService":UnBindToRenderStep("CANNER") end)
