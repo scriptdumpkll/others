@@ -279,14 +279,22 @@ function CMD(Str)
         wait(0.5)
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
     elseif Cmd[1] == ((getgenv().Settings.prefix).."swarm") then
+	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
         Aura = true
         repeat wait()
-			local RanX = math.random(-12,12)
-			local RanZ = math.random(-12,12)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X + RanX, MainOwner.Character.UpperTorso.Position.Y + 3, MainOwner.Character.UpperTorso.Position.Z + RanZ)
+		local RanX = math.random(-12,12)
+		local RanZ = math.random(-12,12)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X + RanX, MainOwner.Character.UpperTorso.Position.Y + 3, MainOwner.Character.UpperTorso.Position.Z + RanZ)
         until Aura == false
     elseif Cmd[1] == ((getgenv().Settings.prefix).."unswarm") then
         Aura = false
+	local players = game:service"Players"
+        local plr = players:GetPlayerByUserId(Settings['host'])
+        players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        wait(0.25)
+        if plr then
+            players.LocalPlayer.Character.HumanoidRootPart.CFrame=plr.Character.HumanoidRootPart.CFrame+Vector3.new(0,10,0)
+        end
     elseif Cmd[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
@@ -322,7 +330,6 @@ function CMD(Str)
     elseif Cmd[1] == ((getgenv().Settings.prefix).."say") then
         saymsg(Cmd[2])
     elseif Cmd[1] == ((getgenv().Settings.prefix).."hide") then
-        local plr = game:service"Players".LocalPlayer
         local player = game:service"Players".LocalPlayer
         player.Character.HumanoidRootPart.Anchored = false
         local pos = CFrame.new(-163,54,216)
