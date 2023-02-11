@@ -2,8 +2,8 @@ if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
-if game:service"CoreGui":FindFirstChild("eyedress") then
-	game:service"CoreGui":FindFirstChild("eyedress"):Destroy()
+if game:service"CoreGui":FindFirstChild("JMANbyJared") then
+	game:service"CoreGui":FindFirstChild("JMANbyJared"):Destroy()
 end
 
 repeat wait(0.001) until workspace.Players:FindFirstChild(game:service"Players".LocalPlayer.Name)
@@ -34,7 +34,7 @@ local Pause = Instance.new("TextButton")
 local ForceCrash = Instance.new("TextButton")
 local Status = Instance.new("TextLabel")
 
-ScreenGui.Name = "eyedress"
+ScreenGui.Name = "JMANbyJared"
 ScreenGui.Parent = game.CoreGui
 ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
@@ -282,17 +282,7 @@ Start.MouseButton1Down:Connect(function()
 				end
 			end
 		end
-		getgenv().groupid = nil
-		local getGroups = game:GetService("GroupService"):GetGroupsAsync(game.Players.LocalPlayer.UserId)
-		if unpack(getGroups) == nil then
-		    warn('no groups'); return
-		else
-			for _, groupInfo in pairs(getGroups) do
-			    if _ == 1 then
-		            getgenv().groupid = groupInfo.Id
-		        end
-			end
-		end
+
 		game:service"RunService":BindToRenderStep("RUNNNER_1",1,function()
 			pcall(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.Crew.CrewFrame.Visible = false
@@ -304,7 +294,7 @@ Start.MouseButton1Down:Connect(function()
 				game:GetService("Players").LocalPlayer.PlayerGui.MainScreenGui.PhoneCalls.Visible = false
 			end)
 
-			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", getgenv().groupid)
+			game:service"ReplicatedStorage".MainEvent:FireServer("JoinCrew", 13388079)
 		end)
 
 		for i,v in pairs(Items) do
