@@ -29,8 +29,10 @@ end
 
 local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
+local Aura = false
 local CurrAnim
-
+local Owner = getgenv().Settings.host
+local MainOwner = game.Players[Owner]
 local S = {
     Found = false,
     Loaded = true,
@@ -276,6 +278,15 @@ function CMD(Str)
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
         wait(0.5)
         game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+    elseif Cmd[1] == ((getgenv().Settings.prefix).."swarm") then
+        Aura = true
+        repeat wait()
+			local RanX = math.random(-12,12)
+			local RanZ = math.random(-12,12)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X + RanX, MainOwner.Character.UpperTorso.Position.Y + 3, MainOwner.Character.UpperTorso.Position.Z + RanZ)
+        until Aura == false
+    elseif Cmd[1] == ((getgenv().Settings.prefix).."unswarm") then
+        Aura = false
     elseif Cmd[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
