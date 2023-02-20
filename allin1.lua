@@ -36,17 +36,12 @@ for i, e in pairs(l:GetChildren()) do
 	end
 end
 
-hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
-hookfunction(game.Players.LocalPlayer.GetRankInGroup, function() return true end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
-game.CoreGui.Crostide_Recode.Frame.Frame.TextLabel.Text = "    JMAN's Selling GUI"
-game.CoreGui.Crostide_Recode.Frame.CreditsFrame.TextLabel.Text = "eyedress#0995"
+loadstring(game:HttpGet('https://raw.githubusercontent.com/W9K/roblox-scripts/main/DHC/SimpleSeller.lua', true))()
 
 getgenv().Crasher_Settings = {
     ["Host"] = "MollyKnox17",
-    ["AltFPS"] = "3",
+    ["AltFPS"] = "2",
     ["Strength"] = "100",
     ["Alts"]  = { 
         "JMANDHC1",
