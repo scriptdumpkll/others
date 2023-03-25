@@ -36,9 +36,11 @@ for i, e in pairs(l:GetChildren()) do
 	end
 end
 
+hookfunction(game.Players.LocalPlayer.IsInGroup, function() return true end)
+hookfunction(game.Players.LocalPlayer.GetRankInGroup, function() return true end)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
-loadstring(game:HttpGet('https://raw.githubusercontent.com/W9K/roblox-scripts/main/DHC/SimpleSeller.lua', true))()
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crashnew/main/crash"))()
 
 local plr = game.Players.LocalPlayer
@@ -52,6 +54,7 @@ game:GetService('UserInputService').InputBegan:Connect(function(Key)
 			if game.CoreGui:FindFirstChild("Redware") then
 				game.CoreGui.Redware:Destroy()
 			end
+			game:service"RunService":Set3dRenderingEnabled(true)
 			ScreenHide = false
 		elseif not ScreenHide then
 			if game.CoreGui:FindFirstChild("Redware") then
@@ -114,7 +117,7 @@ game:GetService('UserInputService').InputBegan:Connect(function(Key)
 			TextLabel_3.TextSize = 14.000
 			TextLabel_3.TextWrapped = true
 			setfpscap(2)
-			game:service"RunService":Set3dRenderingEnabled(true)
+			game:service"RunService":Set3dRenderingEnabled(false)
 			ScreenHide = true
 		end
 	end
