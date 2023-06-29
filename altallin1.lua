@@ -360,7 +360,7 @@ function Commands(Str)
         if Player.UserId == getgenv().Alts.Alt1 then
             Player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
-            if msg[3] == nil or string.lower(msg[3]) == "host" and not table.find(TPAREAS, Admin) and not table.find(TPAREAS, Bank) and not table.find(TPAREAS, Club) and not table.find(TPAREAS, Train) and not table.find(TPAREAS, Void) then
+            if msg[3] == nil or string.lower(msg[3]) == "host" and not table.find(TPAREAS, Admin) and not table.find(TPAREAS, Hidden) and not table.find(TPAREAS, Bank) and not table.find(TPAREAS, Club) and not table.find(TPAREAS, Train) and not table.find(TPAREAS, Void) then
                 theplace = "HOST"
             elseif string.lower(msg[3]) == "admin" then
                 theplace = "Admin"
