@@ -98,6 +98,7 @@ local TPAREAS = {
     Bank = "-375.7147216796875, 21.24999237060547, -364.8031311035156",
     Club = "-265.0559387207031, 0.02806040644645691, -429.0494384765625",
     Train = "608.0512084960938, 47.9999885559082, -104.57772064208984",
+    Hidden = "-768.5383911132812, 44.35078811645508, -859.6719970703125",
     Void = "62.828392028808594, 22362.8828125, 7235.142578125"
 }
 
@@ -344,67 +345,17 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."re") then
         LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
-        for i,v in pairs(Player.Character:GetChildren()) do
-            if string.find(v.Name,"Humanoid") or v:IsA("MeshPart") then
-                v:Destroy()
-            end
-        end
+    	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
+    	repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame == game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
+    	for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+             if v:IsA("MeshPart") or v:IsA("BasePart") or v:IsA("Accessory") then
+                  v:Destroy()
+             end
+    	end
         repeat wait() until Player.Character
         Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."fastcrash") then
-        LOCATIONS_CHACHE['CRASH_POS'] = Player.Character.HumanoidRootPart.CFrame
-        Player.Character.HumanoidRootPart.Anchored = false
-        getgenv().Crasher_Settings = {
-            ["Host"] = "MollyKnox17",
-            ["AltFPS"] = "5",
-            ["Strength"] = "100",
-            ["Alts"]  = { 
-                "JMANDHC1",
-                "JMANDHC2", 
-                "JMANDHC3",
-                "JMANDHC4",
-                "JMANDHC5",
-                "JMANDHC6",
-                "JMANDHC7",
-                "JMANDHC8",
-                "JMANDHC9",
-                "JMANDHC",
-                "JMANDHC11",
-                "Dropperniredja1",
-                "Dropperniredja2",
-                "Dropperniredja3",
-                "Dropperniredja4",
-                "Dropperniredja5",
-                "Lueilwitz58936",
-                "Sipes79236",
-                "Frami58765",
-                "Reinger83675",
-                "Leannon59048",
-                "DavidTapia4",
-                "AmySaunders8",
-                "KatherinePowers7",
-                "MaryKidd21",
-                "SusanBurton50",
-                "TamiHernandez6",
-                "TracyTodd5"
-            }
-        }
-        
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crash/main/main"))()
-        
-        game.Players[getgenv().Crasher_Settings.Host].Chatted:Connect(function(val)
-            msg = string.split(val," ")
-            if msg[1] == '}-dc' then
-                wait(1)
-                Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CRASH_POS']
-                wait(2)
-                Player.Character.HumanoidRootPart.Anchored = true
-            elseif msg[1] == '}-ec' then
-                LOCATIONS_CHACHE['CRASH_POS'] = Player.Character.HumanoidRootPart.CFrame
-            end
-        end)
     elseif msg[1] == ((getgenv().Settings.prefix).."tp") then
         if Player.UserId == getgenv().Alts.Alt1 then
             Player.Character.HumanoidRootPart.Anchored = false
@@ -419,6 +370,8 @@ function Commands(Str)
                 theplace = "Club"
             elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
+	    elseif string.lower(msg[3]) == "hid" then
+		theplace = "Hidden"
             elseif string.lower(msg[3]) == "void" then
                 theplace = "Void"
             end
