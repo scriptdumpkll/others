@@ -370,7 +370,7 @@ function Commands(Str)
                 theplace = "Club"
             elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
-	    elseif string.lower(msg[3]) == "hid" then
+	    elseif string.lower(msg[3]) == "hidden" then
 		theplace = "Hidden"
             elseif string.lower(msg[3]) == "void" then
                 theplace = "Void"
@@ -400,7 +400,9 @@ function Commands(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Bank'],",")[1],string.split(TPAREAS['Bank'],",")[2],string.split(TPAREAS['Bank'],",")[3])
                         elseif theplace == "Void" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Void'],",")[1],string.split(TPAREAS['Void'],",")[2],string.split(TPAREAS['Void'],",")[3])
-                        elseif theplace == "HOST" then
+                        elseif theplace == "Hidden" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Hidden'],",")[1],string.split(TPAREAS['Hidden'],",")[2],string.split(TPAREAS['Hidden'],",")[3])
+			elseif theplace == "HOST" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = op.Character.HumanoidRootPart.CFrame+op.Character.HumanoidRootPart.CFrame.lookVector*3.5
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.Angles(0, math.rad(180), 0)
                         end
