@@ -41,7 +41,6 @@ hookfunction(game.Players.LocalPlayer.GetRankInGroup, function() return true end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/others/main/chatspy.lua"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/cdhc/main/gui"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Crostide/Counter/main/Cash"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptdumpkll/crashnew/main/crash"))()
 
 local plr = game.Players.LocalPlayer
 local ScreenHide = false
