@@ -358,7 +358,7 @@ function Commands(Str)
         Chat(msg[2])
     elseif msg[1] == ((getgenv().Settings.prefix).."to") then
         Player.Character.HumanoidRootPart.Anchored = false
-        Surronund(msg[2])
+        Surround(msg[2])
         Chat("hi")
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
