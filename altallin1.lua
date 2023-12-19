@@ -93,6 +93,10 @@ local I = {
 	cashAura = false,
 }
 
+local PresentSetups = {
+    SurroundSetup = {"4.5,0,0","0,0,4.5","-4.5,0,0","0,0,-4.5","3,0,3","-3,0,3","-3,0,-3","3,0,-3","6.5,0,0","5,0,3","3.5,0,5","0,0,6.5","-5,0,3","-3.5,0,5","-6.5,0,0","-5,0,-3","-3.5,0,-5","0,0,-6.5","5,0,-3","3.5,0,-5","4.5,7,0","0,7,4.5","-4.5,7,0","0,7,-4.5","3,7,3","-3,7,3","-3,7,-3","3,7,-3","6.5,7,0","5,7,3","3.5,7,5","0,7,6.5","-5,7,3","-3.5,7,5","-6.5,7,0","-5,7,-3","-3.5,7,-5","0,7,-6.5","5,7,-3","3.5,7,-5"},
+}
+
 local TPAREAS = {
     Admin = "-870.7142944335938, -32.64921188354492, -654.3141479492188",
     Bank = "-375.7147216796875, 21.24999237060547, -364.8031311035156",
@@ -101,6 +105,27 @@ local TPAREAS = {
     Hidden = "-768.5383911132812, 44.35078811645508, -859.6719970703125",
     Void = "62.828392028808594, 22362.8828125, 7235.142578125"
 }
+
+local function Surronund(PLRNAME)
+    local data = CheckPlr2(PLRNAME)
+    if data then
+        local newalts = FormatAlts()
+        local index = 0
+        local Target = game.Players[data]
+        for i,v in pairs(newalts) do
+            if v == player.UserId then
+                index = index + 1
+                local cords = PresentSetups['SurroundSetup'][index]
+                local x,y,z = string.split(cords,",")[1],string.split(cords,",")[2],string.split(cords,",")[3]
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.CFrame.X+tonumber(x),Target.Character.HumanoidRootPart.CFrame.Y+tonumber(y),Target.Character.HumanoidRootPart.CFrame.Z+tonumber(z))
+            else
+                index = index + 1
+            end
+        end
+    else
+        return false
+    end
+end
 
 function CheckPlayer(userid)
     for i,v in pairs(Players:GetChildren()) do
@@ -147,7 +172,6 @@ local function KnockPlr(plr_name)
                 local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                 if combat then
                     if KNOCKING == false then
-                        reach(false)
                         Player.Character.HumanoidRootPart.CFrame = oldpos
                         return false
                     end
@@ -155,7 +179,7 @@ local function KnockPlr(plr_name)
                         Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                     end
                     Player.Character.HumanoidRootPart.Anchored = false
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,0,2)
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,-2,-2)
                     if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
                         Player.Character:FindFirstChild("Combat"):Activate()
                     end
@@ -165,6 +189,7 @@ local function KnockPlr(plr_name)
             task.wait()
         until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
         Player.Character.HumanoidRootPart.CFrame = oldpos
+        setfpscap (Settings.fps)
         return Target.Name
     end
     return false
@@ -304,7 +329,7 @@ function Commands(Str)
             CurrAnim:Stop()
         end
         local Anim = Instance.new("Animation")
-        Anim.AnimationId = "http://www.roblox.com/asset/?id=11444443576"
+        Anim.AnimationId = "http://www.roblox.com/asset/?id=15392759696"
         CurrAnim = Player.Character.Humanoid.Animator:LoadAnimation(Anim)
         CurrAnim:Play()
         CurrAnim:AdjustSpeed()
@@ -331,6 +356,12 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."say") then
         Chat(msg[2])
+    elseif msg[1] == ((getgenv().Settings.prefix).."to") then
+        Player.Character.HumanoidRootPart.Anchored = false
+        Surronund(msg[2])
+        Chat("hi")
+        wait(2)
+        Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."hide") then
         Player.Character.HumanoidRootPart.Anchored = true
         Player.Character.HumanoidRootPart.Anchored = false
@@ -370,8 +401,8 @@ function Commands(Str)
                 theplace = "Club"
             elseif string.lower(msg[3]) == "bank" then
                 theplace = "Bank"
-	    elseif string.lower(msg[3]) == "hidden" then
-		theplace = "Hidden"
+	        elseif string.lower(msg[3]) == "hidden" then
+		        theplace = "Hidden"
             elseif string.lower(msg[3]) == "void" then
                 theplace = "Void"
             end
@@ -402,7 +433,7 @@ function Commands(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Void'],",")[1],string.split(TPAREAS['Void'],",")[2],string.split(TPAREAS['Void'],",")[3])
                         elseif theplace == "Hidden" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Hidden'],",")[1],string.split(TPAREAS['Hidden'],",")[2],string.split(TPAREAS['Hidden'],",")[3])
-			elseif theplace == "HOST" then
+			            elseif theplace == "HOST" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = op.Character.HumanoidRootPart.CFrame+op.Character.HumanoidRootPart.CFrame.lookVector*3.5
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.Angles(0, math.rad(180), 0)
                         end
