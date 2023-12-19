@@ -106,27 +106,6 @@ local TPAREAS = {
     Void = "62.828392028808594, 22362.8828125, 7235.142578125"
 }
 
-local function Surronund(PLRNAME)
-    local data = CheckPlr2(PLRNAME)
-    if data then
-        local newalts = FormatAlts()
-        local index = 0
-        local Target = game.Players[data]
-        for i,v in pairs(newalts) do
-            if v == player.UserId then
-                index = index + 1
-                local cords = PresentSetups['SurroundSetup'][index]
-                local x,y,z = string.split(cords,",")[1],string.split(cords,",")[2],string.split(cords,",")[3]
-                player.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.CFrame.X+tonumber(x),Target.Character.HumanoidRootPart.CFrame.Y+tonumber(y),Target.Character.HumanoidRootPart.CFrame.Z+tonumber(z))
-            else
-                index = index + 1
-            end
-        end
-    else
-        return false
-    end
-end
-
 function CheckPlayer(userid)
     for i,v in pairs(Players:GetChildren()) do
         if v.UserId == userid then
@@ -134,6 +113,16 @@ function CheckPlayer(userid)
         end
     end
     return false
+end
+
+local function FormatAlts()
+    local new = {}
+    for i,v in pairs(Alts) do
+        if CheckPlr(v) == true then
+            table.insert(new,tonumber(v))
+        end
+    end
+    return new
 end
 
 function ReSort(table_)
@@ -156,6 +145,28 @@ local function CheckPlr2(arg)
         end
     end
     return nil
+end
+
+local function Surronund(PLRNAME)
+    local data = CheckPlr2(PLRNAME)
+    if data then
+        local newalts = FormatAlts()
+        local index = 0
+        local Target = game.Players[data]
+        local player = game.Players.LocalPlayer
+        for i,v in pairs(newalts) do
+            if v == player.UserId then
+                index = index + 1
+                local cords = PresentSetups['SurroundSetup'][index]
+                local x,y,z = string.split(cords,",")[1],string.split(cords,",")[2],string.split(cords,",")[3]
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.CFrame.X+tonumber(x),Target.Character.HumanoidRootPart.CFrame.Y+tonumber(y),Target.Character.HumanoidRootPart.CFrame.Z+tonumber(z))
+            else
+                index = index + 1
+            end
+        end
+    else
+        return false
+    end
 end
 
 local function KnockPlr(plr_name)
@@ -189,7 +200,7 @@ local function KnockPlr(plr_name)
             task.wait()
         until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
         Player.Character.HumanoidRootPart.CFrame = oldpos
-        setfpscap (Settings.fps)
+        setfpscap(Settings.fps)
         return Target.Name
     end
     return false
