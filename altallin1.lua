@@ -115,6 +115,15 @@ function CheckPlayer(userid)
     return false
 end
 
+local function CheckPlr(userId)
+    for i,v in pairs(game.Players:GetChildren()) do
+        if v.UserId == tonumber(userId) then
+            return true
+        end
+    end
+    return false
+end
+
 local function FormatAlts()
     local new = {}
     for i,v in pairs(Alts) do
@@ -190,7 +199,8 @@ local function KnockPlr(plr_name)
                         Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                     end
                     Player.Character.HumanoidRootPart.Anchored = false
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,-2,-2)
+                    local random = (-2, 2)
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0, random, random)
                     if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
                         Player.Character:FindFirstChild("Combat"):Activate()
                     end
@@ -352,7 +362,7 @@ function Commands(Str)
         local plr = game:service"Players".LocalPlayer
         for _, v in pairs(getgenv().Alts) do
             if tonumber(v) == plr.UserId then
-                Chat("["..tostring(_).."] "..Player.Name)
+                Chat("[ "..tostring(_).." ] "..Player.Name)
             end
         end
     elseif msg[1] == ((getgenv().Settings.prefix).."hlock") then
@@ -385,7 +395,11 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."claim") then
+        game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode",msg[2])
+        
     elseif msg[1] == ((getgenv().Settings.prefix).."re") then
+        Player.Character.HumanoidRootPart.Anchored = true
         LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
     	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
     	repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame == game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
