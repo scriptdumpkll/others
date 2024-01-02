@@ -200,8 +200,7 @@ local function KnockPlr(plr_name)
                         Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                     end
                     Player.Character.HumanoidRootPart.Anchored = false
-                    local random = math.random(2, -2)
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character2.HumanoidRootPart.CFrame + Vector3.new(0, random, random)
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character2.HumanoidRootPart.CFrame + Vector3.new(0, 0, 2)
                     if Target.BodyEffects:FindFirstChild("Dead").Value == false and Target.BodyEffects:FindFirstChild("K.O").Value == false then
                         Player.Character:FindFirstChild("Combat"):Activate()
                     end
