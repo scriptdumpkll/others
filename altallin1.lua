@@ -179,42 +179,43 @@ local function Surround(PLRNAME)
 end
 
 local function KnockPlr(plr_name)
-    local data = CheckPlr2(plr_name)
-    if data == nil then
-        return false
-    end
-    local Target = workspace.Players[data]
-    local Target2 = game.Players[data]
-    if Target and Player.Character then
-        local oldpos = Player.Character.HumanoidRootPart.CFrame
-        repeat
-            pcall(function()
-                setfpscap(20)
-                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
-                if combat then
-                    if KNOCKING == false then
-                        Player.Character.HumanoidRootPart.CFrame = oldpos
-                        return false
-                    end
-                    if Player.Backpack:FindFirstChild("Combat") then
-                        Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
-                    end
-                    Player.Character.HumanoidRootPart.Anchored = false
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character2.HumanoidRootPart.CFrame + Vector3.new(0, 0, 2)
-                    if Target.BodyEffects:FindFirstChild("Dead").Value == false and Target.BodyEffects:FindFirstChild("K.O").Value == false then
-                        Player.Character:FindFirstChild("Combat"):Activate()
-                    end
-                    task.wait()
-                end
-            end)
-            task.wait()
-        until Target.BodyEffects:FindFirstChild("K.O").Value == true
-        Player.Character.HumanoidRootPart.CFrame = oldpos
-        setfpscap(Settings.fps)
-        return Target.Name
-    end
-    return false
+   local data = CheckPlr2(plr_name)
+   if data == nil then
+       return false
+   end
+   local Target = game.Players[data]
+   if Target.Character and Player.Character then
+       local oldpos = Player.Character.HumanoidRootPart.CFrame
+       repeat
+           pcall(function()
+               setfpscap(20)
+               local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
+               if combat then
+                   if KNOCKING == false then
+                       reach(false)
+                       Player.Character.HumanoidRootPart.CFrame = oldpos
+                       return false
+                   end
+                   if Player.Backpack:FindFirstChild("Combat") then
+                       Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
+                   end
+                   Player.Character.HumanoidRootPart.Anchored = false
+                   Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0,0,2)
+                   if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
+                       Player.Character:FindFirstChild("Combat"):Activate()
+                   end
+                   task.wait()
+               end
+           end)
+           task.wait()
+       until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
+       Player.Character.HumanoidRootPart.CFrame = oldpos
+       setfpscap(Settings.fps)
+       return Target.Name
+   end
+   return false
 end
+
 
 for d, e in pairs(game.Workspace:GetDescendants()) do
 	if e:IsA("Seat") then
