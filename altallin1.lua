@@ -55,18 +55,7 @@ local CheckTable = function(Id)
            Found = true 
         end
     end
-    
     return Found
-end
-
-local AltsInGame = function()
-	local Am = 0
-	for i,v in pairs(Players:GetChildren()) do 
-		if (CheckTable(v.UserId) == true) then 
-			Am += 1
-		end
-	end
-	return Am
 end
 
 local GetAltNumber = function()
