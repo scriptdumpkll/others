@@ -58,6 +58,17 @@ local CheckTable = function(Id)
     return Found
 end
 
+
+local AltsInGame = function()
+	local Am = 0
+	for i,v in pairs(Players:GetChildren()) do 
+		if (CheckTable(v.UserId) == true) then 
+			Am += 1
+		end
+	end
+	return Am
+end
+
 local GetAltNumber = function()
 	local Number = nil
 	for i,v in pairs((getgenv().Alts)) do 
@@ -188,7 +199,7 @@ local function KnockPlr(plr_name)
                         Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                     end
                     Player.Character.HumanoidRootPart.Anchored = false
-                    local random = (-2, 2)
+                    local random = math.random(2, -2)
                     Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0, random, random)
                     if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
                         Player.Character:FindFirstChild("Combat"):Activate()
