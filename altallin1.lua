@@ -156,7 +156,7 @@ local function CheckPlr2(arg)
     return nil
 end
 
-local function Surronund(PLRNAME)
+local function Surround(PLRNAME)
     local data = CheckPlr2(PLRNAME)
     if data then
         local newalts = FormatAlts()
@@ -183,8 +183,9 @@ local function KnockPlr(plr_name)
     if data == nil then
         return false
     end
-    local Target = game.Players[data]
-    if Target.Character and Player.Character then
+    local Target = workspace.Players[data]
+    local Target2 = game.Players[data]
+    if Target and Player.Character then
         local oldpos = Player.Character.HumanoidRootPart.CFrame
         repeat
             pcall(function()
@@ -200,15 +201,15 @@ local function KnockPlr(plr_name)
                     end
                     Player.Character.HumanoidRootPart.Anchored = false
                     local random = math.random(2, -2)
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(0, random, random)
-                    if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character2.HumanoidRootPart.CFrame + Vector3.new(0, random, random)
+                    if Target.BodyEffects:FindFirstChild("Dead").Value == false and Target.BodyEffects:FindFirstChild("K.O").Value == false then
                         Player.Character:FindFirstChild("Combat"):Activate()
                     end
                     task.wait()
                 end
             end)
             task.wait()
-        until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
+        until Target.BodyEffects:FindFirstChild("K.O").Value == true
         Player.Character.HumanoidRootPart.CFrame = oldpos
         setfpscap(Settings.fps)
         return Target.Name
@@ -323,8 +324,8 @@ function Commands(Str)
         local BaseAnchor = Players:GetPlayerByUserId(Settings['host'])
         local Set = CreateSet()
         for i=1,40 do
-            if Alts_[i] == player.UserId then
-                player.Character.HumanoidRootPart.CFrame = BaseAnchor.Character.HumanoidRootPart.CFrame * CFrame.new(Set[i],0,0)
+            if Alts_[i] == Player.UserId then
+                Player.Character.HumanoidRootPart.CFrame = BaseAnchor.Character.HumanoidRootPart.CFrame * CFrame.new(Set[i],0,0)
                 break
             end
         end
@@ -397,9 +398,8 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."claim") then
         game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode",msg[2])
-        
     elseif msg[1] == ((getgenv().Settings.prefix).."re") then
-        Player.Character.HumanoidRootPart.Anchored = true
+        Player.Character.HumanoidRootPart.Anchored = false
         LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
     	game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
     	repeat wait() until game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame == game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0,-498,0)
