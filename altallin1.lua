@@ -102,8 +102,8 @@ local TPAREAS = {
     Bank = "-375.7147216796875, 21.24999237060547, -364.8031311035156",
     Club = "-265.0559387207031, 0.02806040644645691, -429.0494384765625",
     Train = "608.0512084960938, 47.9999885559082, -104.57772064208984",
-    Hidden = "-768.5383911132812, 44.35078811645508, -859.6719970703125",
-    Void = "62.828392028808594, 22362.8828125, 7235.142578125"
+    Hidden = "-113, -59, 146",
+    Void = "62.828392028808594, 55555.8828125, 7235.142578125"
 }
 
 function CheckPlayer(userid)
@@ -230,6 +230,8 @@ spawn(function()
     task.wait(0.5)
 end)
 
+local summon = {'hello, master ',"at your service, master ", "i'm here, master ", "waiting for your commands, master "}
+
 function Commands(Str)
     local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
     local msg = (Str:lower():split(" "))
@@ -346,6 +348,9 @@ function Commands(Str)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['SWARM_POS']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
+    elseif msg[1] == ((getgenv().Settings.prefix).."warp") then
+		Player.Character.HumanoidRootPart.Anchored = false
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(game.Players:GetPlayerByUserId(op).Character.HumanoidRootPart.CFrame.X,game.Players:GetPlayerByUserId(op).Character.HumanoidRootPart.CFrame.Y,game.Players:GetPlayerByUserId(op).Character.HumanoidRootPart.CFrame.Z)
     elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
@@ -381,7 +386,7 @@ function Commands(Str)
     elseif msg[1] == ((getgenv().Settings.prefix).."to") then
         Player.Character.HumanoidRootPart.Anchored = false
         Surround(msg[2])
-        Chat("hi")
+        Chat(summon[math.random(1, #summon)] .. op.DisplayName)
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."hide") then
