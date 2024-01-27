@@ -43,6 +43,7 @@ local Aura = false
 local CurrAnim
 local Owner = getgenv().Settings.host
 local MainOwner = game.Players:GetPlayerByUserId(Settings['host'])
+local chr = game.Players.LocalPlayer.Character
 
 local Chat = function(Str)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(Str), "All")
@@ -366,7 +367,7 @@ function Commands(Str)
     elseif msg[1] == ((getgenv().Settings.prefix).."to") then
         Player.Character.HumanoidRootPart.Anchored = false
         Surround(msg[2])
-		lookAt(msg[2])
+		lookAt(chr, msg[2])
         Chat(summon[math.random(1, #summon)] .. op.DisplayName)
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
