@@ -230,7 +230,7 @@ spawn(function()
     task.wait(0.5)
 end)
 
-local summon = {'hello, master ',"at your service, master ", "i'm here, master ", "waiting for your commands, master "}
+local summon = {'hello', 'hi', 'wsg', 'yo', 'bbg', 'hey'}
 
 function Commands(Str)
     local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
@@ -303,35 +303,6 @@ function Commands(Str)
         I.cashAura = false 
         I.isGrabber = false 
         I.duping = false
-    elseif msg[1] == ((getgenv().Settings.prefix).."line") then
-        Player.Character.HumanoidRootPart.Anchored = false
-        Aura = false
-        local g = 4
-        local function ReverseRotation(x)
-            return x-(x*2)
-        end
-        local function CreateSet()
-            local k = {}
-            local g = 4
-            for i=1,20 do
-                local c = ReverseRotation(g)
-                local f = ReverseRotation(c)
-                g = g + 4
-                table.insert(k,f)
-                table.insert(k,c)
-            end
-            return k
-        end
-        local Alts_ = ReSort(Alts)
-        local BaseAnchor = Players:GetPlayerByUserId(Settings['host'])
-        local Set = CreateSet()
-        for i=1,40 do
-            if Alts_[i] == Player.UserId then
-                Player.Character.HumanoidRootPart.CFrame = BaseAnchor.Character.HumanoidRootPart.CFrame * CFrame.new(Set[i],0,0)
-                break
-            end
-        end
-        Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
         Aura = true
