@@ -106,6 +106,15 @@ local TPAREAS = {
     Void = "62.828392028808594, 55555.8828125, 7235.142578125"
 }
 
+function lookAt(chr,target)
+    if chr.PrimaryPart then 
+        local chrPos=chr.PrimaryPart.Position 
+        local tPos=target.Position 
+        local newCF=CFrame.new(chrPos,tPos) 
+        chr:SetPrimaryPartCFrame(newCF)
+    end
+end
+
 function CheckPlayer(userid)
     for i,v in pairs(Players:GetChildren()) do
         if v.UserId == userid then
@@ -357,6 +366,7 @@ function Commands(Str)
     elseif msg[1] == ((getgenv().Settings.prefix).."to") then
         Player.Character.HumanoidRootPart.Anchored = false
         Surround(msg[2])
+		lookAt(msg[2])
         Chat(summon[math.random(1, #summon)] .. op.DisplayName)
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
