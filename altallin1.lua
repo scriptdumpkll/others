@@ -155,15 +155,6 @@ function ReSort(table_)
     return k
 end
 
-function lookAt(chr,target)
-    if chr.PrimaryPart then 
-        local chrPos=chr.PrimaryPart.Position 
-        local tPos=target.Position 
-        local newCF=CFrame.new(chrPos,tPos) 
-        chr:SetPrimaryPartCFrame(newCF)
-    end
-end       
-
 local function CheckPlr2(arg)
     for i,v in pairs(game.Players:GetChildren()) do
         if (string.sub(string.lower(v.Name),1,string.len(arg))) == string.lower(arg) then
@@ -189,7 +180,6 @@ local function Surround(PLRNAME)
                 local cords = PresentSetups['SurroundSetup'][index]
                 local x,y,z = string.split(cords,",")[1],string.split(cords,",")[2],string.split(cords,",")[3]
                 player.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.CFrame.X+tonumber(x),Target.Character.HumanoidRootPart.CFrame.Y+tonumber(y),Target.Character.HumanoidRootPart.CFrame.Z+tonumber(z))
-                lookAt(chr, Target.Character.HumanoidRootPart)
             else
                 index = index + 1
             end
@@ -252,7 +242,7 @@ spawn(function()
 end)
 
 local summon = {'hello', 'hi', 'wsg', 'yo', 'hey'}
-
+local circlebool = false 
 function Commands(Str)
     local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
     local msg = (Str:lower():split(" "))
@@ -326,24 +316,25 @@ function Commands(Str)
         I.duping = false
     elseif msg[1] == ((getgenv().Settings.prefix).."circle") then
         Player.Character.HumanoidRootPart.Anchored = false
-        local circlebool = false 
         LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
         task.wait()
-        setfpscap(5)
-        repeat task.wait(0.5)
+        local mes = msg[3]
+        repeat
             circlebool = true
             local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
             local Targ = CheckPlr2(msg[2])
             local Target = game.Players[Targ]
-            local Pos = (Target.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((game.Players.LocalPlayer * ((2*math.pi)/(AltsInGame)))) * 6.5, 0, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
-
+            local Pos = (Target.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((0 * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
+            setfpscap(5)
             Player.Character.HumanoidRootPart.Anchored = false
             Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, Target.Character.HumanoidRootPart.Position)
+            task.wait()
         until circlebool == false
     elseif msg[1] == ((getgenv().Settings.prefix).."nocircle") then
         circlebool = false
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
         wait(2)
+        setfpscap(Settings['fps'])
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
