@@ -369,6 +369,19 @@ function Commands(Str)
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
+    elseif msg[1] == ((getgenv().Settings.prefix).."float") then
+        if CurrAnim and CurrAnim.IsPlaying then
+            CurrAnim:Stop()
+        end
+        local Float = Instance.new("Animation")
+        Float.AnimationId = "http://www.roblox.com/asset/?id=15698404340"
+        Curr = Player.Character.Humanoid.Animator:LoadAnimation(Float)
+        Curr:Play()
+        Curr:AdjustSpeed()
+    elseif msg[1] == ((getgenv().Settings.prefix).."nofloat") then
+        if Curr and Curr.IsPlaying then
+            Curr:Stop()
+        end
     elseif msg[1] == ((getgenv().Settings.prefix).."who") then
         local plr = game:service"Players".LocalPlayer
         for _, v in pairs(getgenv().Alts) do
@@ -547,7 +560,10 @@ function Commands(Str)
                             end)
                             wait(1) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
+                        Chat("take a picture of your wallet before taking")
                         wait(1)
+                        Chat("and send it to your ticket/dms")
+                        wait(4)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
                         setfpscap(Settings['fps'])
                     end
