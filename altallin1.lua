@@ -207,7 +207,6 @@ local function KnockPlr(plr_name)
                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                if combat then
                    if KNOCKING == false then
-                       reach(false)
                        Player.Character.HumanoidRootPart.CFrame = oldpos
                        return false
                    end
@@ -216,15 +215,14 @@ local function KnockPlr(plr_name)
                    end
                    Player.Character.HumanoidRootPart.Anchored = false
                    if Target.Character.Humanoid.MoveDirection.Magnitude == 0 then
-                    amount = 3
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
                    elseif Target.Character.Humanoid.MoveDirection.Magnitude > 0 then 
                     if Target.Character.BodyEffects:FindFirstChild('Block') then
-                        amount = 2
+                        Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2)
                     else
-                        amount = -16
+                        Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, math.random(-13, -18))
                     end
                    end
-                   Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, amount)
                    if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
                        Player.Character:FindFirstChild("Combat"):Activate()
                    end
