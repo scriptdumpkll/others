@@ -215,14 +215,13 @@ local function KnockPlr(plr_name)
                        Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                    end
                    Player.Character.HumanoidRootPart.Anchored = false
-                   local random = math.random(-13, -18)
                    if Target.Character.Humanoid.MoveDirection.Magnitude == 0 then
                     amount = 3
                    elseif Target.Character.Humanoid.MoveDirection.Magnitude > 0 then 
                     if Target.Character.BodyEffects:FindFirstChild('Block') then
                         amount = 2
                     else
-                        amount = random
+                        amount = -16
                     end
                    end
                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, amount)
