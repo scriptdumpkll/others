@@ -215,12 +215,12 @@ local function KnockPlr(plr_name)
                    end
                    Player.Character.HumanoidRootPart.Anchored = false
                    if Target.Character.Humanoid.MoveDirection.Magnitude == 0 then
-                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 3)
+                    Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, math.random(-3, 3))
                    elseif Target.Character.Humanoid.MoveDirection.Magnitude > 0 then 
                     if Target.Character.BodyEffects:FindFirstChild('Block') then
                         Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, 2)
                     else
-                        Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, math.random(-13, -18))
+                        Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, math.random(-19, 1))
                     end
                    end
                    if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
