@@ -44,6 +44,9 @@ local CurrAnim
 local Owner = getgenv().Settings.host
 local MainOwner = game.Players:GetPlayerByUserId(Settings['host'])
 local chr = game.Players.LocalPlayer.Character
+local Character = Player.Character 
+local RunService = game:GetService("RunService") 
+local Humanoid = Character:FindFirstChild("Humanoid")
 
 local Chat = function(Str)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(Str), "All")
@@ -197,6 +200,7 @@ local function KnockPlr(plr_name)
    local Target = game.Players[data]
    if Target.Character and Player.Character then
        local oldpos = Player.Character.HumanoidRootPart.CFrame
+       local amount = nil
        repeat
            pcall(function()
                setfpscap(20)
@@ -211,7 +215,17 @@ local function KnockPlr(plr_name)
                        Player.Backpack:FindFirstChild("Combat").Parent = Player.Character
                    end
                    Player.Character.HumanoidRootPart.Anchored = false
-                   Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame + Vector3.new(math.random(-2, 3), -0, math.random(-3, 4))
+                   local random = math.random(-13, -18)
+                   if Target.Character.Humanoid.MoveDirection.Magnitude == 0 then
+                    amount = 3
+                   elseif Target.Character.Humanoid.MoveDirection.Magnitude > 0 then 
+                    if Target.Character.BodyEffects:FindFirstChild('Block') then
+                        amount = 2
+                    else
+                        amount = random
+                    end
+                   end
+                   Player.Character.HumanoidRootPart.CFrame = Target.Character.HumanoidRootPart.CFrame * CFrame.new(0, 0, amount)
                    if Target.Character.BodyEffects:FindFirstChild("Dead").Value == false and Target.Character.BodyEffects:FindFirstChild("K.O").Value == false then
                        Player.Character:FindFirstChild("Combat"):Activate()
                    end
@@ -247,12 +261,12 @@ function Commands(Str)
     local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
     local msg = (Str:lower():split(" "))
     local OLDMSG = msg
-    if msg[1] == ((getgenv().Settings.prefix).."dupe") then 
+    if msg[1] == ((getgenv().Settings.prefix).."df") then 
         Aura = false
         if (I.duping == true) then 
-            Chat("dupe already started")
+            Chat("already started")
             task.wait(0.1)
-            Chat("chat "..(getgenv().Settings.prefix).."stopdupe to stop")
+            Chat("chat "..(getgenv().Settings.prefix).."stop to stop")
             return
         end
         
@@ -274,68 +288,35 @@ function Commands(Str)
 
         I.duping = true
         
-        if (I.isGrabber == true) then
+        if (I.isGrabber == false) then
             task.spawn(function()
-                Chat("starting collecting cash")
-                I.cashAura = true 
-                
-                repeat 
-                    Player.Character.HumanoidRootPart.Anchored = false
-                    for i,v in pairs(workspace.Ignored.Drop:GetChildren()) do
-                        if v:IsA("Part") and (v.Position-player.Character.HumanoidRootPart.Position).Magnitude <= 15 then
-                            fireclickdetector(v:FindFirstChild("ClickDetector"))
-                        end
-                    end
-                    task.wait(0.13)
-                until (I.cashAura == false) or (I.isGrabber == false)
-                
-                Chat("stopped collecting cash")
-            end)
-        else 
-            task.spawn(function()
-                Chat("starting dropping cash")
-            
-                repeat 
+                Chat("start")
+                LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
+                task.wait()
+                setfpscap(5)
+                repeat
                     local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
-
-                    local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5, 0, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
-
+                    local mes = msg[3]
+                    local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
+                    
                     Player.Character.HumanoidRootPart.Anchored = false
                     Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
                     
                     Event:FireServer("DropMoney", "10000")
-                    task.wait(0.5)
+                    Event:FireServer("Block", true)
+                    task.wait()
                 until (I.duping == false)
                 
-                Chat("stopped dropping cash")
+                Chat("end")
             end)	
         end   
-    elseif msg[1] == ((getgenv().Settings.prefix).."stopdupe") then
+    elseif msg[1] == ((getgenv().Settings.prefix).."stop") then
         I.cashAura = false 
         I.isGrabber = false 
         I.duping = false
-    elseif msg[1] == ((getgenv().Settings.prefix).."circle") then
-        Player.Character.HumanoidRootPart.Anchored = false
-        LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
-        task.wait()
-        local mes = msg[3]
-        repeat
-            circlebool = true
-            local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
-            local Targ = CheckPlr2(msg[2])
-            local Target = game.Players[Targ]
-            local Pos = (Target.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((0 * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
-            setfpscap(5)
-            Player.Character.HumanoidRootPart.Anchored = false
-            Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, Target.Character.HumanoidRootPart.Position)
-            task.wait()
-        until circlebool == false
-    elseif msg[1] == ((getgenv().Settings.prefix).."nocircle") then
-        circlebool = false
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
-        wait(2)
+        Event:FireServer("Block", false)
         setfpscap(Settings['fps'])
-        Player.Character.HumanoidRootPart.Anchored = true
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
     elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
         Aura = true
@@ -437,6 +418,8 @@ function Commands(Str)
                 theplace1 = "Bank" 
             elseif string.lower(msg[2]) == "train" then
                 theplace1 = "Train"
+            elseif string.lower(msg[2]) == "ufo" then
+                theplace1 = "Ufo"
             elseif string.lower(msg[2]) == "club" then
                 theplace1 = "Club"
             elseif string.lower(msg[2]) == "bank" then
@@ -462,8 +445,8 @@ function Commands(Str)
                             end)
                             wait(1)
                         until Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
-                        if theplace1 == "Admin" then
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Admin'],",")[1],string.split(HOSTTPAREAS['Admin'],",")[2],string.split(HOSTTPAREAS['Admin'],",")[3])
+                        if theplace1 == "Ufo" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Ufo'],",")[1],string.split(HOSTTPAREAS['Ufo'],",")[2],string.split(HOSTTPAREAS['Ufo'],",")[3])
                         elseif theplace1 == "Train" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Train'],",")[1],string.split(HOSTTPAREAS['Train'],",")[2],string.split(HOSTTPAREAS['Train'],",")[3])
                         elseif theplace1 == "Club" then
