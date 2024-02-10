@@ -306,6 +306,13 @@ function Commands(Str)
                 LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
                 task.wait()
                 SetFPS(5)
+                local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
+                local mes = msg[3]
+                local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
+                
+                Player.Character.HumanoidRootPart.Anchored = false
+                Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
+                wait(1.5)
                 repeat
                     local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
                     local mes = msg[3]
@@ -345,7 +352,7 @@ function Commands(Str)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['SWARM_POS']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."warp") then
+    elseif msg[1] == ((getgenv().Settings.prefix).."spot") then
 		Player.Character.HumanoidRootPart.Anchored = false
         wait(1)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootpart.Position.X+4,MainOwner.Character.HumanoidRootpart.Position.Y + -6,MainOwner.Character.HumanoidRootpart.Position.Z)
@@ -515,6 +522,8 @@ function Commands(Str)
                 theplace = "Void"
             elseif string.lower(msg[3]) == "inside" then
                 theplace = "Inside"
+            elseif string.lower(msg[2]) == "hidden2" then
+		        theplace1 = "Hidden2"
             end
             if theplace then
                 local ko_data = KnockPlr(msg[2])
@@ -545,7 +554,9 @@ function Commands(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Hidden'],",")[1],string.split(TPAREAS['Hidden'],",")[2],string.split(TPAREAS['Hidden'],",")[3])
                         elseif theplace == "Inside" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Inside'],",")[1],string.split(TPAREAS['Inside'],",")[2],string.split(TPAREAS['Inside'],",")[3])
-			            elseif theplace == "HOST" then
+                        elseif theplace1 == "Hidden2" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(TPAREAS['Hidden2'],",")[1],string.split(TPAREAS['Hidden2'],",")[2],string.split(TPAREAS['Hidden2'],",")[3])
+                        elseif theplace == "HOST" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = op.Character.HumanoidRootPart.CFrame+op.Character.HumanoidRootPart.CFrame.lookVector*3.5
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame*CFrame.Angles(0, math.rad(180), 0)
                         end
