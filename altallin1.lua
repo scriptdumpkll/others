@@ -344,7 +344,7 @@ function Commands(Str)
             local RanX = math.random(-12,12)
             local RanZ = math.random(-12,12)
             local RanY = math.random(-5,5)
-            Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootpart.Position.X + RanX, MainOwner.Character.HumanoidRootpart.Position.Y + RanY + 10, MainOwner.Character.HumanoidRootpart.Position.Z + RanZ)
+            Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.Position.X + RanX, MainOwner.Character.HumanoidRootPart.Position.Y + RanY + 10, MainOwner.Character.HumanoidRootPart.Position.Z + RanZ)
         until Aura == false
     elseif msg[1] == ((getgenv().Settings.prefix).."noswarm") then
         Aura = false
@@ -355,7 +355,7 @@ function Commands(Str)
     elseif msg[1] == ((getgenv().Settings.prefix).."spot") then
 		Player.Character.HumanoidRootPart.Anchored = false
         wait(1)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootpart.Position.X+4,MainOwner.Character.HumanoidRootpart.Position.Y + -6,MainOwner.Character.HumanoidRootpart.Position.Z)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.Position.X+4,MainOwner.Character.HumanoidRootPart.Position.Y + -6,MainOwner.Character.HumanoidRootPart.Position.Z)
         task.wait(0.1)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
@@ -462,7 +462,7 @@ function Commands(Str)
                         repeat
                             pcall(function()
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootpart.Position.X,Target.Character.HumanoidRootpart.Position.Y+1.3,Target.Character.HumanoidRootpart.Position.Z)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,Target.Character.HumanoidRootPart.Position.Y+1.3,Target.Character.HumanoidRootPart.Position.Z)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                                 end
                             end)
@@ -534,7 +534,7 @@ function Commands(Str)
                         repeat
                             pcall(function()
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootpart.Position.X,Target.Character.HumanoidRootpart.Position.Y+1.3,Target.Character.HumanoidRootpart.Position.Z)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,Target.Character.HumanoidRootPart.Position.Y+1.3,Target.Character.HumanoidRootPart.Position.Z)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                                 end
                             end)
