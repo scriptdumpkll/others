@@ -15,7 +15,7 @@ local function SetFPS(fps)
 	end)()
 end
 
-SetFPS(3)
+SetFPS(2)
 
 local CP = Instance.new("Part", workspace)
 CP.Anchored = true 
