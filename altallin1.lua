@@ -47,7 +47,6 @@ local chr = game.Players.LocalPlayer.Character
 local Character = Player.Character 
 local RunService = game:GetService("RunService") 
 local Humanoid = Character:FindFirstChild("Humanoid")
-
 local fpsCap = 2
 local clock = tick()
 
@@ -122,7 +121,8 @@ local TPAREAS = {
     Train = "608.0512084960938, 47.9999885559082, -104.57772064208984",
     Hidden = "-113, -59, 146",
     Void = "62.828392028808594, 55555.8828125, 7235.142578125",
-    Inside = "71.3002700805664, 139, -689.3167114257812"
+    Inside = "71.3002700805664, 139, -689.3167114257812",
+    Hidden2 = "78, 68, -678"
 }
 
 local HOSTTPAREAS = {
@@ -132,7 +132,7 @@ local HOSTTPAREAS = {
     Hidden = "-113, -59, 146",
     Ufo = "83.00314331054688, 139, -656.7293701171875",
     School = "-548.2129516601562, 173.375, -2.1917953491210938",
-    2 = "78, 68, -678"
+    Hidden2 = "78, 68, -678"
 }
 
 function CheckPlayer(userid)
@@ -218,7 +218,7 @@ local function KnockPlr(plr_name)
        local amount = nil
        repeat
            pcall(function()
-            SetFPS(20)
+               SetFPS(20)
                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                if combat then
                    if KNOCKING == false then
@@ -306,14 +306,6 @@ function Commands(Str)
                 LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
                 task.wait()
                 SetFPS(5)
-                Event:FireServer("Block", true)
-                wait(2)
-                local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
-                local mes = msg[3]
-                local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
-                
-                Player.Character.HumanoidRootPart.Anchored = false
-                Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
                 repeat
                     local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
                     local mes = msg[3]
@@ -321,7 +313,9 @@ function Commands(Str)
                     
                     Player.Character.HumanoidRootPart.Anchored = false
                     Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
+                    
                     Event:FireServer("DropMoney", "10000")
+                    Event:FireServer("Block", true)
                     task.wait()
                 until (I.duping == false)
                 
@@ -353,9 +347,8 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."warp") then
 		Player.Character.HumanoidRootPart.Anchored = false
-        local XD = 4
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X+XD,MainOwner.Character.UpperTorso.Position.Y + -6,MainOwner.Character.UpperTorso.Position.Z)
-        task.wait(1)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.UpperTorso.Position.X+4,MainOwner.Character.UpperTorso.Position.Y + -6,MainOwner.Character.UpperTorso.Position.Z)
+        task.wait(0.1)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
@@ -446,13 +439,13 @@ function Commands(Str)
                 theplace1 = "Bank"
 	        elseif string.lower(msg[2]) == "hidden" then
 		        theplace1 = "Hidden"
+            elseif string.lower(msg[2]) == "hidden2" then
+		        theplace1 = "Hidden2"
             elseif string.lower(msg[2]) == "school" then
                 theplace1 = "School"
-            elseif string.lower(msg[2]) == "hidden2" then
-                theplace1 = "Hidden2"
             end
             if theplace1 then
-                local host = "mollyk"
+                local host = "moll"
                 local ko_data = KnockPlr(host)
                 if ko_data then
                     local Target = game.Players[ko_data]
@@ -477,10 +470,10 @@ function Commands(Str)
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Bank'],",")[1],string.split(HOSTTPAREAS['Bank'],",")[2],string.split(HOSTTPAREAS['Bank'],",")[3])
                         elseif theplace1 == "School" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['School'],",")[1],string.split(HOSTTPAREAS['School'],",")[2],string.split(HOSTTPAREAS['School'],",")[3])
-                        elseif theplace1 == "Hidden2" then
-                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Hidden2'],",")[1],string.split(HOSTTPAREAS['Hidden2'],",")[2],string.split(HOSTTPAREAS['Hidden2'],",")[3])
                         elseif theplace1 == "Hidden" then
                             game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Hidden'],",")[1],string.split(HOSTTPAREAS['Hidden'],",")[2],string.split(HOSTTPAREAS['Hidden'],",")[3])
+                        elseif theplace1 == "Hidden2" then
+                            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(string.split(HOSTTPAREAS['Hidden2'],",")[1],string.split(HOSTTPAREAS['Hidden2'],",")[2],string.split(HOSTTPAREAS['Hidden2'],",")[3])
                         end
                         wait(1)
                         repeat
@@ -567,10 +560,7 @@ function Commands(Str)
                             end)
                             wait(1) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
-                        Chat("take a picture of your wallet before taking")
                         wait(1)
-                        Chat("and send it to your ticket/dms")
-                        wait(4)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
                         SetFPS(Settings['fps'])
                     end
