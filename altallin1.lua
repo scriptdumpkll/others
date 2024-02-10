@@ -51,7 +51,7 @@ local SetFps = 2
 local frameStart = os.clock()
 
 RunService.PreSimulation:Connect(function()
-	while os.clock() - frameStart < 1 / TARGET_FRAME_RATE do end
+	while os.clock() - frameStart < 1 / SetFps do end
 
 	frameStart = os.clock()
 end)
