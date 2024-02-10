@@ -220,7 +220,7 @@ local function KnockPlr(plr_name)
        local amount = nil
        repeat
            pcall(function()
-               setfpscap(20)
+            SetFPS(20)
                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                if combat then
                    if KNOCKING == false then
@@ -249,7 +249,7 @@ local function KnockPlr(plr_name)
            task.wait()
        until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
        Player.Character.HumanoidRootPart.CFrame = oldpos
-       setfpscap(Settings.fps)
+       SetFPS(Settings.fps)
        return Target.Name
    end
    return false
@@ -307,7 +307,7 @@ function Commands(Str)
                 Chat("start")
                 LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
                 task.wait()
-                setfpscap(5)
+                SetFPS(5)
                 repeat
                     local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
                     local mes = msg[3]
@@ -329,7 +329,7 @@ function Commands(Str)
         I.isGrabber = false 
         I.duping = false
         Event:FireServer("Block", false)
-        setfpscap(Settings['fps'])
+        SetFPS(Settings['fps'])
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
     elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
@@ -486,7 +486,7 @@ function Commands(Str)
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        setfpscap(Settings['fps'])
+                        SetFPS(Settings['fps'])
                     end
                 end
             end
@@ -562,7 +562,7 @@ function Commands(Str)
                         Chat("and send it to your ticket/dms")
                         wait(4)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        setfpscap(Settings['fps'])
+                        SetFPS(Settings['fps'])
                     end
                 end
             end
