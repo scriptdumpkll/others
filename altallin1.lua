@@ -47,15 +47,6 @@ local chr = game.Players.LocalPlayer.Character
 local Character = Player.Character 
 local RunService = game:GetService("RunService") 
 local Humanoid = Character:FindFirstChild("Humanoid")
-local SetFps = 2
-local frameStart = os.clock()
-
-RunService.PreSimulation:Connect(function()
-	while os.clock() - frameStart < 1 / SetFps do end
-
-	frameStart = os.clock()
-end)
-
 
 local Chat = function(Str)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(Str), "All")
@@ -213,7 +204,7 @@ local function KnockPlr(plr_name)
        local amount = nil
        repeat
            pcall(function()
-            SetFps = 20
+            SetFPS(20)
                local combat = Player.Character:FindFirstChild("Combat") or Player.Backpack:FindFirstChild("Combat")
                if combat then
                    if KNOCKING == false then
@@ -242,7 +233,7 @@ local function KnockPlr(plr_name)
            task.wait()
        until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
        Player.Character.HumanoidRootPart.CFrame = oldpos
-       SetFps = Settings.fps
+       SetFPS(Settings.fps)
        return Target.Name
    end
    return false
@@ -300,7 +291,7 @@ function Commands(Str)
                 Chat("start")
                 LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
                 task.wait()
-                SetFps = 5
+                SetFPS(5)
                 Event:FireServer("Block", true)
                 wait(2)
                 local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
@@ -328,7 +319,7 @@ function Commands(Str)
         I.isGrabber = false 
         I.duping = false
         Event:FireServer("Block", false)
-        SetFps = Settings['fps']
+        SetFPS(Settings['fps'])
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
     elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
@@ -491,7 +482,7 @@ function Commands(Str)
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        SetFps = Settings['fps']
+                        SetFPS(Settings['fps'])
                     end
                 end
             end
@@ -562,9 +553,12 @@ function Commands(Str)
                             end)
                             wait(1) 
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
+                        Chat("take a picture of your wallet before taking")
                         wait(1)
+                        Chat("and send it to your ticket/dms")
+                        wait(4)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        SetFps = Settings['fps']
+                        SetFPS(Settings['fps'])
                     end
                 end
             end
