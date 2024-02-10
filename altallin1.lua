@@ -48,6 +48,20 @@ local Character = Player.Character
 local RunService = game:GetService("RunService") 
 local Humanoid = Character:FindFirstChild("Humanoid")
 
+local fpsCap = 2
+local clock = tick()
+
+game:GetService("RunService").RenderStepped:Connect(function()
+	while clock + 1 / fpsCap > tick() do end
+	clock = tick()
+	
+	task.wait()
+end)
+
+local function SetFPS(FPS)
+    fpsCap = FPS
+end
+
 local Chat = function(Str)
 	game:GetService("ReplicatedStorage").DefaultChatSystemChatEvents.SayMessageRequest:FireServer(tostring(Str), "All")
 end
