@@ -1,5 +1,22 @@
 local a=game:GetService("ReplicatedStorage").MainEvent;local b={"CHECKER_1","TeleportDetect","OneMoreTime"}local c;c=hookmetamethod(game,"__namecall",function(...)local d={...}local self=d[1]local e=getnamecallmethod()local f=getcallingscript()if e=="FireServer"and self==a and table.find(b,d[2])then return end return c(...)end)
 
+local RunService = game:GetService("RunService")
+
+local function SetFPS(fps)
+	local MAX_FPS = 1 / fps
+	
+	coroutine.wrap(function()
+		while true do
+			local before = os.clock()
+			RunService.RenderStepped:Wait()
+			
+			repeat until (before + MAX_FPS) < os.clock()
+		end
+	end)()
+end
+
+SetFPS(3)
+
 local CP = Instance.new("Part", workspace)
 CP.Anchored = true 
 CP.CanCollide = false 
