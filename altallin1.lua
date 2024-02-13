@@ -306,13 +306,7 @@ function Commands(Str)
                 LOCATIONS_CHACHE['CIRCLE_POS'] = Player.Character.HumanoidRootPart.CFrame
                 task.wait()
                 SetFPS(5)
-                local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
-                local mes = msg[3]
-                local Pos = (I.grabberPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(math.cos((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5, mes, math.sin((AltNr * ((2*math.pi)/(AltsInGame)))) * 6.5)).p
-                
-                Player.Character.HumanoidRootPart.Anchored = false
-                Player.Character.HumanoidRootPart.CFrame = CFrame.new(Pos, I.grabberPlayer.Character.HumanoidRootPart.Position)
-                wait(1.5)
+                wait(1)
                 repeat
                     local AltNr,AltsInGame = GetAltNumber(), AltsInGame()	
                     local mes = msg[3]
@@ -534,7 +528,7 @@ function Commands(Str)
                         repeat
                             pcall(function()
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,Target.Character.HumanoidRootPart.Position.Y+1.3,Target.Character.HumanoidRootPart.Position.Z)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.UpperTorso.Position.X,Target.Character.UpperTorso.Position.Y+1.3,Target.Character.UpperTorso.Position.Z)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                                 end
                             end)
