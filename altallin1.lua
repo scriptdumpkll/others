@@ -9,32 +9,124 @@ CP.Transparency = 0.7
 CP.Name = "CAM_PART"
 workspace.Camera.CameraSubject = workspace.CAM_PART
 
+local LP = game:GetService('Players').LocalPlayer
 settings().Physics.PhysicsEnvironmentalThrottle = 1
 settings().Rendering.QualityLevel = 'Level01'
-UserSettings():GetService("UserGameSettings").MasterVolume = 0
-for i,v in pairs(game:GetDescendants()) do
-    if v:IsA("Part") then
-        v.Material = Enum.Material.Pavement
+UserSettings():GetService('UserGameSettings').MasterVolume = 0
+
+--// Hidden Functions
+setsimulationradius(0, 0)
+
+--// Physical/UI Derender
+task.spawn(function()
+for _, v in next, game:GetDescendants() do
+    if v:IsA('Workspace') then
+        sethiddenproperty(v, 'StreamingTargetRadius', 64)
+        sethiddenproperty(v, 'StreamingPauseMode', 2)
+        sethiddenproperty(v.Terrain, 'Decoration', false)
+        v.Terrain.Elasticity = 0
+        v.Terrain.WaterWaveSize = 0
+        v.Terrain.WaterWaveSpeed = 0
+        v.Terrain.WaterReflectance = 0
+        v.Terrain.WaterTransparency = 1
+    elseif v:IsA('NetworkClient') then
+        --v:SetOutgoingKBPSLimit(100)
+    elseif v:IsA('Lighting') then
+        sethiddenproperty(v, 'Technology', 2)
+        v.GlobalShadows = false
+        v.FogEnd = 1/0
+        v.Brightness = 0
+    elseif v:IsA('Model') then
+        sethiddenproperty(v, 'LevelOfDetail', 1)
+    elseif LP and v == LP then
+        v.ReplicationFocus = nil
+    elseif v:IsA('Decal') or v:IsA('Texture') then
         v.Transparency = 1
-    elseif v:IsA("Decal") then
-        v:Destroy()
-    elseif v:IsA("Texture") then
-        v:Destroy()
-    elseif v:IsA("MeshPart") then
-        v.TextureID = 0
-        v.Transparency = 1
-    elseif v.Name == "Terrian" then
-        v.WaterReflectace = 1
-        v.WaterTransparency = 1
-    elseif v:IsA("SpotLight") then
-        v.Range = 0
+    elseif v:IsA('Fire') or v:IsA('SpotLight') or v:IsA('Smoke') or v:IsA('Sparkles') then
         v.Enabled = false
-    elseif v:IsA("WedgePart") then
-        v.Transparency = 1
-    elseif v:IsA("UnionOperation") then
-        v.Transparency = 1
+    elseif v:IsA('SpecialMesh') then
+        v.TextureId = ''
+        v.MeshId = ''
+    elseif v:IsA('ParticleEmitter') or v:IsA('Trail') then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA('BlurEffect') or v:IsA('SunRaysEffect') or v:IsA('ColorCorrectionEffect') or v:IsA('BloomEffect') or v:IsA('DepthOfFieldEffect')  then
+        v.Enabled = false
+    elseif v:IsA('BasePart') and not v:IsA('MeshPart') then
+        v.Reflectance = 0
+        v.Material = 'SmoothPlastic'
+    elseif v:IsA('Pants') or v:IsA('Shirt') then
+        v[v.ClassName..'Template'] = ''
+    elseif v:IsA('Explosion') then
+        v.BlastPressure = 0
+        v.BlastRadius = 0
+        v.Visible = false
+        v.Position = Vector3.new(0, 0, 0)
+    elseif v:IsA('ForceField') then
+        v.Visible = false
+    elseif v:IsA('ShirtGraphic') then
+        v.Graphic = ''
+    elseif v:IsA('MeshPart') then
+        v.MeshId = ''
+        v.TextureID = ''
+        v.Reflectance = 0
+        v.Material = 'SmoothPlastic'
+    elseif v:IsA('CharacterMesh') then
+        v.BaseTextureId = ''
+        v.MeshId = ''
+        v.OverlayTextureId = ''
+    elseif v:IsA('Sound') then
+        v.SoundId = ''
+        v.Volume = 0
     end
 end
+end)
+
+
+local WorkspaceChildAdded;WorkspaceChildAdded = workspace.DescendantAdded:Connect(function(v)
+    wait()
+    if v:IsA('Model') then
+        sethiddenproperty(v, 'LevelOfDetail', 1)
+    elseif LP and v == LP then
+        v.ReplicationFocus = nil
+    elseif v:IsA('Decal') or v:IsA('Texture') then
+        v.Transparency = 1
+    elseif v:IsA('Fire') or v:IsA('SpotLight') or v:IsA('Smoke') or v:IsA('Sparkles') then
+        v.Enabled = false
+    elseif v:IsA('SpecialMesh') then
+        v.TextureId = ''
+        v.MeshId = ''
+    elseif v:IsA('ParticleEmitter') or v:IsA('Trail') then
+        v.Lifetime = NumberRange.new(0)
+    elseif v:IsA('BlurEffect') or v:IsA('SunRaysEffect') or v:IsA('ColorCorrectionEffect') or v:IsA('BloomEffect') or v:IsA('DepthOfFieldEffect')  then
+        v.Enabled = false
+    elseif v:IsA('BasePart') and not v:IsA('MeshPart') then
+        v.Reflectance = 0
+        v.Material = 'SmoothPlastic'
+    elseif v:IsA('Pants') or v:IsA('Shirt') then
+        v[v.ClassName..'Template'] = ''
+    elseif v:IsA('Explosion') then
+        v.BlastPressure = 0
+        v.BlastRadius = 0
+        v.Visible = false
+        v.Position = Vector3.new(0, 0, 0)
+    elseif v:IsA('ForceField') then
+        v.Visible = false
+    elseif v:IsA('ShirtGraphic') then
+        v.Graphic = ''
+    elseif v:IsA('MeshPart') then
+        v.MeshId = ''
+        v.TextureID = ''
+        v.Reflectance = 0
+        v.Material = 'SmoothPlastic'
+    elseif v:IsA('CharacterMesh') then
+        v.BaseTextureId = ''
+        v.MeshId = ''
+        v.OverlayTextureId = ''
+    elseif v:IsA('Sound') then
+        v.SoundId = ''
+        v.Volume = 0
+    end
+end)
 
 local Players = game:GetService("Players")
 local Event = game:GetService("ReplicatedStorage").MainEvent
@@ -338,7 +430,7 @@ function Commands(Str)
             local RanX = math.random(-12,12)
             local RanZ = math.random(-12,12)
             local RanY = math.random(-5,5)
-            Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.Position.X + RanX, MainOwner.Character.HumanoidRootPart.Position.Y + RanY + 10, MainOwner.Character.HumanoidRootPart.Position.Z + RanZ)
+            Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.CFrame.X + RanX, MainOwner.Character.HumanoidRootPart.CFrame.Y + RanY + 10, MainOwner.Character.HumanoidRootPart.CFrame.Z + RanZ)
         until Aura == false
     elseif msg[1] == ((getgenv().Settings.prefix).."noswarm") then
         Aura = false
@@ -349,7 +441,7 @@ function Commands(Str)
     elseif msg[1] == ((getgenv().Settings.prefix).."spot") then
 		Player.Character.HumanoidRootPart.Anchored = false
         wait(1)
-		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.Position.X+4,MainOwner.Character.HumanoidRootPart.Position.Y + -6,MainOwner.Character.HumanoidRootPart.Position.Z)
+		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.CFrame.X+4,MainOwner.Character.HumanoidRootPart.CFrame.Y + -6,MainOwner.Character.HumanoidRootPart.CFrame.Z)
         task.wait(0.1)
         Player.Character.HumanoidRootPart.Anchored = true
     elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
@@ -456,7 +548,7 @@ function Commands(Str)
                         repeat
                             pcall(function()
                                 if not Target.Character:FindFirstChild("GRABBING_CONSTRAINT") then
-                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.HumanoidRootPart.Position.X,Target.Character.HumanoidRootPart.Position.Y+1.3,Target.Character.HumanoidRootPart.Position.Z)
+                                    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(Target.Character.UpperTorso.Position.X,Target.Character.UpperTorso.Position.Y+1.3,Target.Character.UpperTorso.Position.Z)
                                     game.ReplicatedStorage.MainEvent:FireServer("Grabbing",false)
                                 end
                             end)
