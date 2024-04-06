@@ -142,15 +142,8 @@ local Humanoid = Character:FindFirstChild("Humanoid")
 local fpsCap = 2
 local clock = tick()
 
-game:GetService("RunService").RenderStepped:Connect(function()
-	while clock + 1 / fpsCap > tick() do end
-	clock = tick()
-	
-	task.wait()
-end)
-
 local function SetFPS(FPS)
-    fpsCap = FPS
+    setfpscap(FPS)
 end
 
 local Chat = function(Str)
