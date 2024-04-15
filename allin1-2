@@ -356,7 +356,7 @@ end)
 local summon = {'hello', 'hi', 'wsg', 'yo', 'hey'}
 local circlebool = false 
 function Commands(Str)
-    local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
+    local op = game.Players:GetPlayerByUserId(getgenv()._SETTINGS_._HOST_)
     local msg = (Str:lower():split(" "))
     local OLDMSG = msg
     if msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."df") then 
@@ -577,7 +577,7 @@ function Commands(Str)
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        SetFPS(Settings['fps'])
+                        SetFPS(_SETTINGS_['_FPS_'])
                     end
                 end
             end
