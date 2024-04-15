@@ -333,7 +333,7 @@ local function KnockPlr(plr_name)
            task.wait()
        until Target.Character.BodyEffects:FindFirstChild("K.O").Value == true
        Player.Character.HumanoidRootPart.CFrame = oldpos
-       SetFPS(Settings.fps)
+       SetFPS(getgenv()._SETTINGS_._FPS_)
        return Target.Name
    end
    return false
@@ -359,12 +359,12 @@ function Commands(Str)
     local op = game.Players:GetPlayerByUserId(getgenv().Settings.host)
     local msg = (Str:lower():split(" "))
     local OLDMSG = msg
-    if msg[1] == ((getgenv().Settings.prefix).."df") then 
+    if msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."df") then 
         Aura = false
         if (I.duping == true) then 
             Chat("already started")
             task.wait(0.1)
-            Chat("chat "..(getgenv().Settings.prefix).."stop to stop")
+            Chat("chat "..(getgenv()._SETTINGS_._PREFIX_).."stop to stop")
             return
         end
         
@@ -409,14 +409,14 @@ function Commands(Str)
                 Chat("end")
             end)	
         end   
-    elseif msg[1] == ((getgenv().Settings.prefix).."stop") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."stop") then
         I.cashAura = false 
         I.isGrabber = false 
         I.duping = false
         Event:FireServer("Block", false)
-        SetFPS(Settings['fps'])
+        SetFPS(_SETTINGS_['_FPS_'])
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['CIRCLE_POS']
-    elseif msg[1] == ((getgenv().Settings.prefix).."swarm") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."swarm") then
 	    Player.Character.HumanoidRootPart.Anchored = false
         Aura = true
         LOCATIONS_CHACHE['SWARM_POS'] = Player.Character.HumanoidRootPart.CFrame
@@ -426,19 +426,19 @@ function Commands(Str)
             local RanY = math.random(-5,5)
             Player.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.CFrame.X + RanX, MainOwner.Character.HumanoidRootPart.CFrame.Y + RanY + 10, MainOwner.Character.HumanoidRootPart.CFrame.Z + RanZ)
         until Aura == false
-    elseif msg[1] == ((getgenv().Settings.prefix).."noswarm") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."noswarm") then
         Aura = false
         wait(0.5)
         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['SWARM_POS']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."spot") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."spot") then
 		Player.Character.HumanoidRootPart.Anchored = false
         wait(1)
 		game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(MainOwner.Character.HumanoidRootPart.CFrame.X+4,MainOwner.Character.HumanoidRootPart.CFrame.Y + -6,MainOwner.Character.HumanoidRootPart.CFrame.Z)
         task.wait(0.1)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."dance") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."dance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
@@ -447,11 +447,11 @@ function Commands(Str)
         CurrAnim = Player.Character.Humanoid.Animator:LoadAnimation(Anim)
         CurrAnim:Play()
         CurrAnim:AdjustSpeed()
-    elseif msg[1] == ((getgenv().Settings.prefix).."nodance") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."nodance") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
-    elseif msg[1] == ((getgenv().Settings.prefix).."float") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."float") then
         if CurrAnim and CurrAnim.IsPlaying then
             CurrAnim:Stop()
         end
@@ -460,50 +460,50 @@ function Commands(Str)
         Curr = Player.Character.Humanoid.Animator:LoadAnimation(Float)
         Curr:Play()
         Curr:AdjustSpeed()
-    elseif msg[1] == ((getgenv().Settings.prefix).."nofloat") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."nofloat") then
         if Curr and Curr.IsPlaying then
             Curr:Stop()
         end
-    elseif msg[1] == ((getgenv().Settings.prefix).."who") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."who") then
         local plr = game:service"Players".LocalPlayer
         for _, v in pairs(getgenv().Alts) do
             if tonumber(v) == plr.UserId then
                 Chat("[ "..tostring(_).." ] "..Player.Name)
             end
         end
-    elseif msg[1] == ((getgenv().Settings.prefix).."hlock") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."hlock") then
         Player.Character.HumanoidRootPart.Anchored = false
         Player.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, 300, 0)
         wait(0.25)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."unhlock") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."unhlock") then
         Player.Character.HumanoidRootPart.Anchored = false
         game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.CFrame * CFrame.new(0, -300, 0)
         wait(0.25)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."say") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."say") then
         Chat(msg[2])
-    elseif msg[1] == ((getgenv().Settings.prefix).."to") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."to") then
         Player.Character.HumanoidRootPart.Anchored = false
         Surround(msg[2])
         Chat(summon[math.random(1, #summon)] .. " "..op.DisplayName)
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."hide") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."hide") then
         Player.Character.HumanoidRootPart.Anchored = true
         Player.Character.HumanoidRootPart.Anchored = false
         LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
         Player.Character.HumanoidRootPart.CFrame = CFrame.new(-163,54,216)
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."unhide") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."unhide") then
         Player.Character.HumanoidRootPart.Anchored = false
         Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."claim") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."claim") then
         game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode",msg[2])
-    elseif msg[1] == ((getgenv().Settings.prefix).."re") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."re") then
         Player.Character.HumanoidRootPart.Anchored = false
         LOCATIONS_CHACHE['OLD_HIDESPOT'] = Player.Character.HumanoidRootPart.CFrame
         game.Players.LocalPlayer.Character:FindFirstChildOfClass("Humanoid"):ChangeState(Enum.HumanoidStateType.Dead)
@@ -511,7 +511,7 @@ function Commands(Str)
         Player.Character.HumanoidRootPart.CFrame = LOCATIONS_CHACHE['OLD_HIDESPOT']
         wait(2)
         Player.Character.HumanoidRootPart.Anchored = true
-    elseif msg[1] == ((getgenv().Settings.prefix).."h") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."h") then
         if Player.Name == "JMANDHC1" then
             Player.Character.HumanoidRootPart.Anchored = false
             local theplace1 = ""
@@ -582,7 +582,7 @@ function Commands(Str)
                 end
             end
         end
-    elseif msg[1] == ((getgenv().Settings.prefix).."tp") then
+    elseif msg[1] == ((getgenv()._SETTINGS_._PREFIX_).."tp") then
         if Player.Name == "JMANDHC1" then
             Player.Character.HumanoidRootPart.Anchored = false
             local theplace = ""
@@ -654,7 +654,7 @@ function Commands(Str)
                         until not Target.Character:FindFirstChild("GRABBING_CONSTRAINT")
                         wait(1)
                         game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = oldpos
-                        SetFPS(Settings['fps'])
+                        SetFPS(_SETTINGS_['_FPS_'])
                     end
                 end
             end
